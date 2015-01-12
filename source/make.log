@@ -1,0 +1,1798 @@
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/uClibc++'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/uClibc++'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib'
++ ./extra/scripts/fix_includes.sh -k /home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x -t mips
+Current kernel version is 2.6.21
+-e 
+
+Using kernel headers from 2.6.21 for architecture 'mips'
+-e 	provided in directory /home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x
+-e 
+
++ TOPDIR=. CC=/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc /bin/sh extra/scripts/gen_bits_syscall_h.sh
++ cmp include/bits/sysnum.h include/bits/sysnum.h.new
++ rm -f include/bits/sysnum.h.new
+make -C libc/sysdeps/linux/common headers
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+ln -fs ../libc/sysdeps/linux/common/fpu_control.h ../../../..//include/
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+make -C libc/sysdeps/linux/mips headers
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+ln -fs ../libc/sysdeps/linux/mips/sgidefs.h ../../../..//include/
+ln -fs ../libc/sysdeps/linux/mips/fpu_control.h ../../../..//include/
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+(cd extra/locale; \
+	if [ ! -f uClibc-locale-030818.tgz ] ; then \
+	wget --passive-ftp http://www.uclibc.org/downloads/uClibc-locale-030818.tgz ; \
+	fi );
+(cd extra/locale; zcat uClibc-locale-030818.tgz | tar -xvf -)
+c8tables.h
+locale_data.c
+locale_mmap.h
+lt_defines.h
+uClibc_locale_data.h
+wctables.h
+make -C extra/locale pregen
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/extra/locale'
+cat uClibc_locale_data.h | awk 'BEGIN{i=1}{ if ( /WANT_/ ) i = /endif/ ; else if (i) print  }' > ../../include/bits/uClibc_locale_data.h
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/extra/locale'
+make -C  ldso
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso'
+make -C ldso
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/ldso'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/ldso'
+make -C libdl
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso'
+make -C  libc
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc'
+make -C  misc
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc'
+make -C  assert
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/assert'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/assert'
+make -C  ctype
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ctype'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ctype'
+make -C  dirent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/dirent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/dirent'
+make -C  file
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/file'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/file'
+make -C  fnmatch
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/fnmatch'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/fnmatch'
+make -C  internals
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/internals'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/internals'
+make -C  mntent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/mntent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/mntent'
+make -C  syslog
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/syslog'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/syslog'
+make -C  time
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/time'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/time'
+make -C  utmp
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/utmp'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/utmp'
+make -C  sysvipc
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/sysvipc'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/sysvipc'
+make -C  statfs
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/statfs'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/statfs'
+make -C  error
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/error'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/error'
+make -C  ttyent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ttyent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ttyent'
+make -C  gnu
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/gnu'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/gnu'
+make -C  search
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/search'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/search'
+make -C  locale
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/locale'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/locale'
+make -C  regex
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/regex'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/regex'
+make -C  pthread
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/pthread'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/pthread'
+make -C  wctype
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wctype'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wctype'
+make -C  wchar
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wchar'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wchar'
+make -C  intl
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/intl'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/intl'
+make -C  glob
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/glob'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/glob'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc'
+make -C  pwd_grp
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/pwd_grp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/pwd_grp'
+make -C  stdio
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdio'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdio'
+make -C  string
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string'
+make -C  generic
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/generic'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/generic'
+make -C  mips
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/mips'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/mips'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string'
+make -C  termios
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/termios'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/termios'
+make -C  inet
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet'
+make -C  rpc
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet/rpc'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet/rpc'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet'
+make -C  signal
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/signal'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/signal'
+make -C  stdlib
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib'
+make -C  malloc-standard
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib/malloc-standard'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib/malloc-standard'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib'
+make -C  sysdeps
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps'
+make -C  linux
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux'
+make -C common
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+make -C mips
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps'
+make -C  unistd
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/unistd'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/unistd'
+rm -f libc.a shared_libc.a
+objs=`cat obj.*` ; \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libc.a $objs && \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar dN 2 libc.a $objs && \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar dN 2 libc.a $objs
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.signal
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string.generic
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string.mips
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.sysdeps.common
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.sysdeps.mips
+cp libc.a shared_libc.a
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libc.a misc/internals/static.o
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ranlib libc.a
+install -d ../lib
+rm -f ../lib/libc.a
+install -m 644 libc.a ../lib
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc'
+make -C  libintl
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libintl'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libintl'
+make -C  libcrypt
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libcrypt'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libcrypt'
+make -C  libresolv
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libresolv'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libresolv'
+make -C  libnsl
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnsl'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnsl'
+make -C  libutil
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libutil'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libutil'
+make -C  libm
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libm'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libm.a e_acos.o e_acosh.o e_asin.o e_atan2.o e_atanh.o e_cosh.o e_exp.o e_fmod.o e_gamma.o e_gamma_r.o e_hypot.o e_j0.o e_j1.o e_jn.o e_lgamma.o e_lgamma_r.o e_log.o e_log10.o e_pow.o e_remainder.o e_rem_pio2.o e_scalb.o e_sinh.o e_sqrt.o k_cos.o k_rem_pio2.o k_sin.o k_standard.o k_tan.o s_asinh.o s_atan.o s_cbrt.o s_ceil.o s_copysign.o s_cos.o s_erf.o s_expm1.o s_fabs.o s_finite.o s_floor.o s_frexp.o s_ilogb.o s_ldexp.o s_lib_version.o s_log1p.o s_logb.o s_matherr.o s_modf.o s_nextafter.o s_rint.o s_scalbn.o s_signgam.o s_significand.o s_sin.o s_tan.o s_tanh.o w_acos.o w_acosh.o w_asin.o w_atan2.o w_atanh.o w_cabs.o w_cosh.o w_drem.o w_exp.o w_fmod.o w_gamma.o w_gamma_r.o w_hypot.o w_j0.o w_j1.o w_jn.o w_lgamma.o w_lgamma_r.o w_log.o w_log10.o w_pow.o w_remainder.o w_scalb.o w_sinh.o w_sqrt.o fpmacros.o nan.o s_ceilf.o s_floorf.o acosf.o acoshf.o asinf.o asinhf.o atan2f.o atanf.o atanhf.o cbrtf.o ceilf.o copysignf.o cosf.o coshf.o erfcf.o erff.o exp2f.o expf.o expm1f.o fabsf.o fdimf.o floorf.o fmaf.o fmaxf.o fminf.o fmodf.o frexpf.o hypotf.o ilogbf.o ldexpf.o lgammaf.o log10f.o log1pf.o log2f.o logbf.o logf.o lrintf.o lroundf.o modff.o nearbyintf.o nextafterf.o powf.o remainderf.o remquof.o rintf.o roundf.o scalblnf.o scalbnf.o sinf.o sinhf.o sqrtf.o tanf.o tanhf.o tgammaf.o truncf.o
+install -d ../lib
+rm -f ../lib/libm.a
+install -m 644 libm.a ../lib
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libm'
+make -C  zlib-1.2.3
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/zlib-1.2.3'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/zlib-1.2.3'
+make -C  libpthread
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread'
+make -C  linuxthreads
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads'
+make -C  sysdeps
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads/sysdeps'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads/sysdeps'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads'
+install -d ../lib
+rm -f ../lib/libpthread.a
+install -m 644 libpthread.a ../lib
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread'
+make -C  libnvram
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnvram'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnvram'
+make -C  libntfs-3g
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libntfs-3g'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libntfs-3g'
+make -C  libflex
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libflex'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libflex'
+make -C  libupnp
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp'
+make -C upnp
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp'
+
+Building shared libraries ...
+
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc'
+make -C  misc
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc'
+make -C  assert
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/assert'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/assert'
+make -C  ctype
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ctype'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ctype'
+make -C  dirent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/dirent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/dirent'
+make -C  file
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/file'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/file'
+make -C  fnmatch
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/fnmatch'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/fnmatch'
+make -C  internals
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/internals'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/internals'
+make -C  mntent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/mntent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/mntent'
+make -C  syslog
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/syslog'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/syslog'
+make -C  time
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/time'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/time'
+make -C  utmp
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/utmp'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/utmp'
+make -C  sysvipc
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/sysvipc'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/sysvipc'
+make -C  statfs
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/statfs'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/statfs'
+make -C  error
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/error'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/error'
+make -C  ttyent
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ttyent'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/ttyent'
+make -C  gnu
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/gnu'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/gnu'
+make -C  search
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/search'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/search'
+make -C  locale
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/locale'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/locale'
+make -C  regex
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/regex'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/regex'
+make -C  pthread
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/pthread'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/pthread'
+make -C  wctype
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wctype'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wctype'
+make -C  wchar
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wchar'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/wchar'
+make -C  intl
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/intl'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/intl'
+make -C  glob
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/glob'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc/glob'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/misc'
+make -C  pwd_grp
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/pwd_grp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/pwd_grp'
+make -C  stdio
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdio'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdio'
+make -C  string
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string'
+make -C  generic
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/generic'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/generic'
+make -C  mips
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/mips'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string/mips'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/string'
+make -C  termios
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/termios'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/termios'
+make -C  inet
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet'
+make -C  rpc
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet/rpc'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet/rpc'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/inet'
+make -C  signal
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/signal'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/signal'
+make -C  stdlib
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib'
+make -C  malloc-standard
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib/malloc-standard'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib/malloc-standard'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/stdlib'
+make -C  sysdeps
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps'
+make -C  linux
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux'
+make -C common
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/common'
+make -C mips
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux/mips'
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps/linux'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/sysdeps'
+make -C  unistd
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/unistd'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc/unistd'
+rm -f libc.a shared_libc.a
+objs=`cat obj.*` ; \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libc.a $objs && \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar dN 2 libc.a $objs && \
+	"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar dN 2 libc.a $objs
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.signal
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string.generic
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string.mips
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.string
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.sysdeps.common
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libc.a obj.sysdeps.mips
+cp libc.a shared_libc.a
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libc.a misc/internals/static.o
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ranlib libc.a
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now  -soname=libc.so.0 -o libuClibc-0.9.28.so \
+		--whole-archive shared_libc.a \
+		../libc/misc/internals/interp.o --no-whole-archive \
+		-init __uClibc_init ../lib/ld-uClibc.so.0 /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a 
+install -d ../lib
+rm -f ../lib/libuClibc-0.9.28.so
+install -m 644 libuClibc-0.9.28.so ../lib
+ln -sf libuClibc-0.9.28.so ../lib/libc.so
+ln -sf libuClibc-0.9.28.so ../lib/libc.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libc'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso'
+make -C ldso
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/ldso'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/ldso'
+make -C libdl
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+make -C libdl shared
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libdl.so.0 \
+		-o libdl-0.9.28.so -fini dl_cleanup --whole-archive libdl_pic.a \
+		--no-whole-archive ../..//libc/misc/internals/interp.o \
+		-L../..//lib -lc  ../../lib/ld-uClibc.so.0 /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../../lib
+rm -f ../../lib/libdl-0.9.28.so ../../lib/libdl.so.0
+install -m 644 libdl-0.9.28.so ../../lib
+ln -sf libdl-0.9.28.so ../../lib/libdl.so
+ln -sf libdl-0.9.28.so ../../lib/libdl.so.0
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso/libdl'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/ldso'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libcrypt'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libcrypt.so.0 \
+		-o libcrypt-0.9.28.so --whole-archive libcrypt.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libcrypt-0.9.28.so ../lib/libcrypt.so.0
+install -m 644 libcrypt-0.9.28.so ../lib;
+ln -sf libcrypt-0.9.28.so ../lib/libcrypt.so
+ln -sf libcrypt-0.9.28.so ../lib/libcrypt.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libcrypt'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libresolv'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libresolv.so.0 \
+		-o libresolv-0.9.28.so --whole-archive libresolv.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libresolv-0.9.28.so ../lib/libresolv.so.0
+install -m 644 libresolv-0.9.28.so ../lib
+ln -sf libresolv-0.9.28.so ../lib/libresolv.so
+ln -sf libresolv-0.9.28.so ../lib/libresolv.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libresolv'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnsl'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libnsl.so.0 \
+		-o libnsl-0.9.28.so --whole-archive libnsl.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libnsl-0.9.28.so ../lib/libnsl.so.0
+install -m 644 libnsl-0.9.28.so ../lib
+ln -sf libnsl-0.9.28.so ../lib/libnsl.so
+ln -sf libnsl-0.9.28.so ../lib/libnsl.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnsl'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libutil'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libutil.so.0 \
+		-o libutil-0.9.28.so --whole-archive libutil.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libutil-0.9.28.so ../lib/libutil.so.0
+install -m 644 libutil-0.9.28.so ../lib
+ln -sf libutil-0.9.28.so ../lib/libutil.so
+ln -sf libutil-0.9.28.so ../lib/libutil.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libutil'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnvram'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libnvram.so.0 \
+		-o libnvram-0.9.28.so --whole-archive libnvram.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libnvram-0.9.28.so ../lib/libnvram.so.0
+install -m 644 libnvram-0.9.28.so ../lib
+ln -sf libnvram-0.9.28.so ../lib/libnvram.so
+ln -sf libnvram-0.9.28.so ../lib/libnvram.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libnvram'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libntfs-3g'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libntfs-3g.so.26 \
+		-o libntfs-3g.so.26 --whole-archive libntfs-3g.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libntfs-3g.so.26
+install -m 644 libntfs-3g.so.26 ../lib
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libntfs-3g'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libflex'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libfl.so.0 \
+		-o libfl-0.9.28.so --whole-archive libfl.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc -lm  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libfl-0.9.28.so ../lib/libfl.so.0
+install -m 644 libfl-0.9.28.so ../lib
+ln -sf libfl-0.9.28.so ../lib/libfl.so
+ln -sf libfl-0.9.28.so ../lib/libfl.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libflex'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp'
+make -C upnp
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+make -C ixml shared
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/ixml'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libixml.so.1.3.1 \
+		-o libixml.so.1.3.1 --whole-archive libixml.a \
+		--no-whole-archive ../../libc/misc/internals/interp.o \
+		-L../../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../../lib
+rm -f ../../lib/libixml.so.1.3.1
+install -m 644 libixml.so.1.3.1 ../../lib
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/ixml'
+make -C threadutil shared
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/threadutil'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libthreadutil.so.1.3.1 \
+		-o libthreadutil.so.1.3.1 --whole-archive libthreadutil.a \
+		--no-whole-archive ../../libc/misc/internals/interp.o \
+		-L../../lib -lc -lpthread  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../../lib
+rm -f ../../lib/libthreadutil.so.1.3.1
+install -m 644 libthreadutil.so.1.3.1 ../../lib
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/threadutil'
+make -C upnp shared
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libupnp.so.1.3.1 \
+		-o libupnp.so.1.3.1 --whole-archive libupnp.a \
+		--no-whole-archive ../../libc/misc/internals/interp.o \
+		-L../../lib -lc -lpthread ../ixml/libixml.so.1.3.1 ../threadutil/libthreadutil.so.1.3.1  ;
+install -d ../../lib
+rm -f ../../lib/libupnp.so.1.3.1
+install -m 644 libupnp.so.1.3.1 ../../lib
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp/upnp'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libupnp'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libm'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ar cr libm.a e_acos.o e_acosh.o e_asin.o e_atan2.o e_atanh.o e_cosh.o e_exp.o e_fmod.o e_gamma.o e_gamma_r.o e_hypot.o e_j0.o e_j1.o e_jn.o e_lgamma.o e_lgamma_r.o e_log.o e_log10.o e_pow.o e_remainder.o e_rem_pio2.o e_scalb.o e_sinh.o e_sqrt.o k_cos.o k_rem_pio2.o k_sin.o k_standard.o k_tan.o s_asinh.o s_atan.o s_cbrt.o s_ceil.o s_copysign.o s_cos.o s_erf.o s_expm1.o s_fabs.o s_finite.o s_floor.o s_frexp.o s_ilogb.o s_ldexp.o s_lib_version.o s_log1p.o s_logb.o s_matherr.o s_modf.o s_nextafter.o s_rint.o s_scalbn.o s_signgam.o s_significand.o s_sin.o s_tan.o s_tanh.o w_acos.o w_acosh.o w_asin.o w_atan2.o w_atanh.o w_cabs.o w_cosh.o w_drem.o w_exp.o w_fmod.o w_gamma.o w_gamma_r.o w_hypot.o w_j0.o w_j1.o w_jn.o w_lgamma.o w_lgamma_r.o w_log.o w_log10.o w_pow.o w_remainder.o w_scalb.o w_sinh.o w_sqrt.o fpmacros.o nan.o s_ceilf.o s_floorf.o acosf.o acoshf.o asinf.o asinhf.o atan2f.o atanf.o atanhf.o cbrtf.o ceilf.o copysignf.o cosf.o coshf.o erfcf.o erff.o exp2f.o expf.o expm1f.o fabsf.o fdimf.o floorf.o fmaf.o fmaxf.o fminf.o fmodf.o frexpf.o hypotf.o ilogbf.o ldexpf.o lgammaf.o log10f.o log1pf.o log2f.o logbf.o logf.o lrintf.o lroundf.o modff.o nearbyintf.o nextafterf.o powf.o remainderf.o remquof.o rintf.o roundf.o scalblnf.o scalbnf.o sinf.o sinhf.o sqrtf.o tanf.o tanhf.o tgammaf.o truncf.o
+install -d ../lib
+rm -f ../lib/libm.a
+install -m 644 libm.a ../lib
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libm.so.0 \
+		-o libm-0.9.28.so --whole-archive libm.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a
+install -d ../lib
+rm -f ../lib/libm-0.9.28.so ../lib/libm.so.0
+install -m 644 libm-0.9.28.so ../lib
+ln -sf libm-0.9.28.so ../lib/libm.so
+ln -sf libm-0.9.28.so ../lib/libm.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libm'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/zlib-1.2.3'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libz.so.1 \
+                -o libz-1.2.3.so --whole-archive libz.a \
+                --no-whole-archive ../libc/misc/internals/interp.o \
+                -L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libz-1.2.3.so ../lib/libz.so.1
+install -m 644 libz-1.2.3.so ../lib
+install -m 644 *.h ../include
+ln -sf libz-1.2.3.so ../lib/libz.so
+ln -sf libz-1.2.3.so ../lib/libz.so.1
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/zlib-1.2.3'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread'
+make -C  linuxthreads
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads'
+make -C  sysdeps
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads/sysdeps'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads/sysdeps'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread/linuxthreads'
+install -d ../lib
+rm -f ../lib/libpthread.a
+install -m 644 libpthread.a ../lib
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -soname=libpthread.so.0 \
+		-o libpthread-0.9.28.so ../lib/crti.o /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/crtbeginS.o --whole-archive libpthread.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a \
+		/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/crtendS.o ../lib/crtn.o
+install -d ../lib
+rm -f ../lib/libpthread-0.9.28.so \
+		../lib/libpthread.so.0
+install -m 644 libpthread-0.9.28.so ../lib
+ln -sf libpthread-0.9.28.so \
+		../lib/libpthread.so
+ln -sf libpthread-0.9.28.so \
+		../lib/libpthread.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libpthread'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib/libintl'
+"/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-ld  -shared --warn-common --warn-once -z combreloc -z defs -s -z relro -z now -soname=libintl.so.0 \
+		-o libintl-0.9.28.so --whole-archive libintl.a \
+		--no-whole-archive ../libc/misc/internals/interp.o \
+		-L../lib -lc  /home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/libgcc.a;
+install -d ../lib
+rm -f ../lib/libintl-0.9.28.so ../lib/libintl.so.0
+install -m 644 libintl-0.9.28.so ../lib
+ln -sf libintl-0.9.28.so ../lib/libintl.so
+ln -sf libintl-0.9.28.so ../lib/libintl.so.0
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib/libintl'
+
+Finally finished compiling ...
+
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user'
+make -j1 /home/felix/qodome/ralink_sdk-master/source/prop /home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. 802.1x accel-pptp busybox goahead igmpproxy inadyn iptables linux-igd lldt mkdosfs-2.11 mtd_write netcat ntfs-3g ntpclient openl2tp-1.6 ppp-2.4.2 proftpd radvd-1.0 rp-pppoe-3.8 rt2880_app samba-3.0.2 tcpdump wireless_tools wsc_upnp || exit $?
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user'
+[ ! -d "/home/felix/qodome/ralink_sdk-master/source/prop" ] || ( touch /home/felix/qodome/ralink_sdk-master/source/prop/.sgbuilt_user && make -j1 -C /home/felix/qodome/ralink_sdk-master/source/prop ) || exit $?
+make[2]: Nothing to be done for `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/.'.
+[ ! -d "802.1x" ] || ( touch 802.1x/.sgbuilt_user && make -j1 -C 802.1x ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/802.1x'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc -o rt2860apd rtdot1x.o eloop.o eapol_sm.o radius.o md5.o config.o ieee802_1x.o sta_info.o   radius_client.o
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/802.1x'
+[ ! -d "accel-pptp" ] || ( touch accel-pptp/.sgbuilt_user && make -j1 -C accel-pptp ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/accel-pptp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/accel-pptp'
+[ ! -d "busybox" ] || ( touch busybox/.sgbuilt_user && make -j1 -C busybox ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/busybox'
+  SPLIT   include/autoconf.h -> include/config/*
+  GEN     include/bbconfigopts.h
+  HOSTCC  applets/usage
+applets/usage.c: In function ‘main’:
+applets/usage.c:27:7: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  GEN     include/usage_compressed.h
+  HOSTCC  applets/applet_tables
+  GEN     include/applet_tables.h
+  CC      applets/applets.o
+  LD      applets/built-in.o
+  LD      archival/built-in.o
+  AR      archival/lib.a
+  LD      archival/libunarchive/built-in.o
+  CC      archival/libunarchive/data_align.o
+  CC      archival/libunarchive/data_extract_all.o
+  CC      archival/libunarchive/data_extract_to_buffer.o
+  CC      archival/libunarchive/data_extract_to_stdout.o
+  CC      archival/libunarchive/data_skip.o
+  CC      archival/libunarchive/filter_accept_all.o
+  CC      archival/libunarchive/filter_accept_list.o
+  CC      archival/libunarchive/filter_accept_reject_list.o
+  CC      archival/libunarchive/find_list_entry.o
+  CC      archival/libunarchive/header_list.o
+  CC      archival/libunarchive/header_skip.o
+  CC      archival/libunarchive/header_verbose_list.o
+  CC      archival/libunarchive/init_handle.o
+  CC      archival/libunarchive/seek_by_jump.o
+  CC      archival/libunarchive/seek_by_read.o
+  AR      archival/libunarchive/lib.a
+  LD      console-tools/built-in.o
+  CC      console-tools/clear.o
+  AR      console-tools/lib.a
+  LD      coreutils/built-in.o
+  CC      coreutils/basename.o
+  CC      coreutils/cat.o
+  CC      coreutils/chmod.o
+  CC      coreutils/cp.o
+  CC      coreutils/date.o
+  CC      coreutils/echo.o
+  CC      coreutils/expr.o
+  CC      coreutils/ls.o
+  CC      coreutils/mkdir.o
+  CC      coreutils/mknod.o
+  CC      coreutils/printf.o
+  CC      coreutils/pwd.o
+  CC      coreutils/rm.o
+  CC      coreutils/sleep.o
+  CC      coreutils/test.o
+  CC      coreutils/test_ptr_hack.o
+  CC      coreutils/touch.o
+  CC      coreutils/wc.o
+  AR      coreutils/lib.a
+  LD      coreutils/libcoreutils/built-in.o
+  CC      coreutils/libcoreutils/cp_mv_stat.o
+  CC      coreutils/libcoreutils/getopt_mk_fifo_nod.o
+  AR      coreutils/libcoreutils/lib.a
+  LD      debianutils/built-in.o
+  CC      debianutils/which.o
+  AR      debianutils/lib.a
+  LD      e2fsprogs/built-in.o
+  AR      e2fsprogs/lib.a
+  LD      editors/built-in.o
+  CC      editors/sed.o
+  CC      editors/vi.o
+  AR      editors/lib.a
+  LD      findutils/built-in.o
+  CC      findutils/find.o
+  CC      findutils/grep.o
+  AR      findutils/lib.a
+  LD      init/built-in.o
+  CC      init/halt.o
+  CC      init/init.o
+  AR      init/lib.a
+  LD      libbb/built-in.o
+  CC      libbb/appletlib.o
+  CC      libbb/ask_confirmation.o
+  CC      libbb/bb_askpass.o
+  CC      libbb/bb_basename.o
+  CC      libbb/bb_do_delay.o
+  CC      libbb/bb_pwd.o
+  CC      libbb/bb_qsort.o
+  CC      libbb/bb_strtod.o
+  CC      libbb/bb_strtonum.o
+  CC      libbb/change_identity.o
+  CC      libbb/chomp.o
+  CC      libbb/compare_string_array.o
+  CC      libbb/concat_path_file.o
+  CC      libbb/concat_subpath_file.o
+  CC      libbb/copy_file.o
+  CC      libbb/copyfd.o
+  CC      libbb/correct_password.o
+  CC      libbb/crc32.o
+  CC      libbb/create_icmp6_socket.o
+  CC      libbb/create_icmp_socket.o
+  CC      libbb/crypt_make_salt.o
+  CC      libbb/default_error_retval.o
+  CC      libbb/device_open.o
+  CC      libbb/dump.o
+  CC      libbb/error_msg.o
+  CC      libbb/error_msg_and_die.o
+  CC      libbb/execable.o
+  CC      libbb/fclose_nonstdin.o
+  CC      libbb/fflush_stdout_and_exit.o
+  CC      libbb/fgets_str.o
+  CC      libbb/find_pid_by_name.o
+  CC      libbb/find_root_device.o
+  CC      libbb/full_write.o
+  CC      libbb/get_console.o
+  CC      libbb/get_last_path_component.o
+  CC      libbb/get_line_from_file.o
+  CC      libbb/getopt32.o
+  CC      libbb/getpty.o
+  CC      libbb/herror_msg.o
+  CC      libbb/herror_msg_and_die.o
+  CC      libbb/human_readable.o
+  CC      libbb/inet_common.o
+  CC      libbb/info_msg.o
+  CC      libbb/inode_hash.o
+  CC      libbb/isdirectory.o
+  CC      libbb/kernel_version.o
+  CC      libbb/last_char_is.o
+  CC      libbb/lineedit.o
+  CC      libbb/lineedit_ptr_hack.o
+  CC      libbb/llist.o
+  CC      libbb/login.o
+  CC      libbb/make_directory.o
+  CC      libbb/makedev.o
+  CC      libbb/match_fstype.o
+  CC      libbb/md5.o
+  CC      libbb/messages.o
+  CC      libbb/mode_string.o
+  CC      libbb/mtab_file.o
+  CC      libbb/obscure.o
+  CC      libbb/parse_config.o
+  CC      libbb/parse_mode.o
+  CC      libbb/perror_msg.o
+  CC      libbb/perror_msg_and_die.o
+  CC      libbb/perror_nomsg.o
+  CC      libbb/perror_nomsg_and_die.o
+  CC      libbb/pidfile.o
+  CC      libbb/print_flags.o
+  CC      libbb/printable.o
+  CC      libbb/process_escape_sequence.o
+  CC      libbb/procps.o
+  CC      libbb/ptr_to_globals.o
+  CC      libbb/pw_encrypt.o
+  CC      libbb/read.o
+  CC      libbb/recursive_action.o
+  CC      libbb/remove_file.o
+  CC      libbb/restricted_shell.o
+  CC      libbb/run_shell.o
+  CC      libbb/safe_gethostname.o
+  CC      libbb/safe_poll.o
+  CC      libbb/safe_strncpy.o
+  CC      libbb/safe_write.o
+  CC      libbb/setup_environment.o
+  CC      libbb/sha1.o
+  CC      libbb/signals.o
+  CC      libbb/simplify_path.o
+  CC      libbb/skip_whitespace.o
+  CC      libbb/speed_table.o
+  CC      libbb/str_tolower.o
+  CC      libbb/strrstr.o
+  CC      libbb/time.o
+  CC      libbb/trim.o
+  CC      libbb/u_signal_names.o
+  CC      libbb/udp_io.o
+  CC      libbb/update_passwd.o
+  CC      libbb/uuencode.o
+  CC      libbb/vdprintf.o
+  CC      libbb/verror_msg.o
+  CC      libbb/vfork_daemon_rexec.o
+  CC      libbb/warn_ignoring_args.o
+  CC      libbb/wfopen.o
+  CC      libbb/wfopen_input.o
+  CC      libbb/write.o
+  CC      libbb/xatonum.o
+  CC      libbb/xconnect.o
+  CC      libbb/xfunc_die.o
+  CC      libbb/xfuncs.o
+  CC      libbb/xfuncs_printf.o
+  CC      libbb/xgetcwd.o
+  CC      libbb/xgethostbyname.o
+  CC      libbb/xreadlink.o
+  CC      libbb/xrealloc_vector.o
+  CC      libbb/xregcomp.o
+  AR      libbb/lib.a
+  LD      libpwdgrp/built-in.o
+  CC      libpwdgrp/uidgid_get.o
+  AR      libpwdgrp/lib.a
+  LD      loginutils/built-in.o
+  CC      loginutils/chpasswd.o
+  CC      loginutils/login.o
+  AR      loginutils/lib.a
+  LD      miscutils/built-in.o
+  AR      miscutils/lib.a
+  LD      modutils/built-in.o
+  CC      modutils/insmod.o
+modutils/insmod.c:1804: warning: unused parameter 'f'
+modutils/insmod.c:839: warning: unused parameter 'sym'
+  CC      modutils/lsmod.o
+  CC      modutils/rmmod.o
+  AR      modutils/lib.a
+  LD      networking/built-in.o
+  CC      networking/arp.o
+  CC      networking/brctl.o
+  CC      networking/hostname.o
+  CC      networking/ifconfig.o
+  CC      networking/interface.o
+  CC      networking/ip.o
+  CC      networking/nc.o
+  CC      networking/netstat.o
+  CC      networking/ping.o
+  CC      networking/route.o
+  CC      networking/telnet.o
+  CC      networking/telnetd.o
+  CC      networking/tftp.o
+  CC      networking/vconfig.o
+  AR      networking/lib.a
+  LD      networking/libiproute/built-in.o
+  CC      networking/libiproute/ip_parse_common_args.o
+  CC      networking/libiproute/ipaddress.o
+  CC      networking/libiproute/iplink.o
+  CC      networking/libiproute/iproute.o
+  CC      networking/libiproute/libnetlink.o
+  CC      networking/libiproute/ll_addr.o
+  CC      networking/libiproute/ll_map.o
+  CC      networking/libiproute/ll_proto.o
+  CC      networking/libiproute/ll_types.o
+  CC      networking/libiproute/rt_names.o
+  CC      networking/libiproute/rtm_map.o
+  CC      networking/libiproute/utils.o
+  AR      networking/libiproute/lib.a
+  LD      networking/udhcp/built-in.o
+  CC      networking/udhcp/arpping.o
+  CC      networking/udhcp/clientpacket.o
+  CC      networking/udhcp/clientsocket.o
+  CC      networking/udhcp/common.o
+  CC      networking/udhcp/dhcpc.o
+  CC      networking/udhcp/dhcpd.o
+  CC      networking/udhcp/files.o
+  CC      networking/udhcp/leases.o
+networking/udhcp/leases.c: In function `nobody_responds_to_arp':
+networking/udhcp/leases.c:121: warning: passing arg 1 of `add_lease' discards qualifiers from pointer target type
+  CC      networking/udhcp/options.o
+  CC      networking/udhcp/packet.o
+  CC      networking/udhcp/script.o
+  CC      networking/udhcp/serverpacket.o
+  CC      networking/udhcp/signalpipe.o
+  CC      networking/udhcp/socket.o
+  CC      networking/udhcp/static_leases.o
+  AR      networking/udhcp/lib.a
+  LD      printutils/built-in.o
+  AR      printutils/lib.a
+  LD      procps/built-in.o
+  CC      procps/free.o
+  CC      procps/kill.o
+  CC      procps/ps.o
+  CC      procps/top.o
+  CC      procps/uptime.o
+  AR      procps/lib.a
+  LD      runit/built-in.o
+  AR      runit/lib.a
+  LD      selinux/built-in.o
+  AR      selinux/lib.a
+  LD      shell/built-in.o
+  CC      shell/ash.o
+  CC      shell/ash_ptr_hack.o
+  AR      shell/lib.a
+  LD      sysklogd/built-in.o
+  CC      sysklogd/klogd.o
+  CC      sysklogd/logread.o
+  CC      sysklogd/syslogd_and_logger.o
+In file included from /home/felix/qodome/ralink_sdk-master/source/lib/include/syslog.h:1,
+                 from sysklogd/syslogd_and_logger.c:13:
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:76: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:77: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:78: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:79: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:80: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:81: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:82: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:83: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:84: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:85: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:86: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:87: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:124: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:125: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:126: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:127: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:128: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:129: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:130: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:131: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:132: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:133: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:134: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:135: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:136: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:137: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:138: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:139: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:140: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:141: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:142: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:143: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:144: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/ralink_sdk-master/source/lib/include/sys/syslog.h:145: warning: initialization discards qualifiers from pointer target type
+  AR      sysklogd/lib.a
+  LD      util-linux/built-in.o
+  CC      util-linux/dmesg.o
+  CC      util-linux/fdisk.o
+  CC      util-linux/mdev.o
+  CC      util-linux/more.o
+  CC      util-linux/mount.o
+  CC      util-linux/umount.o
+  AR      util-linux/lib.a
+  LD      util-linux/volume_id/built-in.o
+  AR      util-linux/volume_id/lib.a
+  LINK    busybox_unstripped
+Trying libraries: crypt m
+ Library crypt is needed
+ Library m is not needed
+ Library crypt is needed
+Final link with: crypt
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/busybox'
+[ ! -d "goahead" ] || ( touch goahead/.sgbuilt_user && make -j1 -C goahead ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead'
+for i in src cgi-src ; do make -C $i all || exit ; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/src'
+rm -f internet.o
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o internet.o internet.c
+internet.c: In function `ipv6Config':
+internet.c:1866: warning: unused variable `srv_v6addr'
+internet.c:1872: warning: unused variable `wan_addr'
+internet.c: In function `setIPv6':
+internet.c:1954: warning: unused variable `gw_ipaddr'
+internet.c:1954: warning: 'ipaddr' might be used uninitialized in this function
+internet.c:1954: warning: 'prefix_len' might be used uninitialized in this function
+internet.c:1954: warning: 'wan_ipaddr' might be used uninitialized in this function
+internet.c:1954: warning: 'wan_prefix_len' might be used uninitialized in this function
+internet.c:1954: warning: 'srv_ipaddr' might be used uninitialized in this function
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o utils.o utils.c
+utils.c: In function `getModIns':
+utils.c:594: warning: passing arg 2 of `ejSetResult' makes pointer from integer without a cast
+utils.c: In function `getCfgToHTML':
+utils.c:650: warning: assignment makes integer from pointer without a cast
+utils.c: In function `setOpMode':
+utils.c:1355: warning: assignment discards qualifiers from pointer target type
+utils.c:1368: warning: assignment discards qualifiers from pointer target type
+utils.c:1369: warning: assignment discards qualifiers from pointer target type
+utils.c:1391: warning: assignment discards qualifiers from pointer target type
+utils.c:1392: warning: assignment discards qualifiers from pointer target type
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o wireless.o wireless.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o firewall.o firewall.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o management.o management.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o goahead.o goahead.c
+goahead.c: In function `goaInitGpio':
+goahead.c:234: warning: implicit declaration of function `ioctl'
+goahead.c: In function `websGetCgiCommName':
+goahead.c:576: warning: initialization discards qualifiers from pointer target type
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -DGA_HOSTNAME_SUPPORT -DRT2860_1T1R_SUPPORT -DWEBS -DUEMF -DOS="LINUX" -DLINUX -DUSER_MANAGEMENT_SUPPORT    -Wall -fno-strict-aliasing -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/include -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/flash    -c -o usb.o usb.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -o goahead asp.o balloc.o base64.o cgi.o default.o ejlex.o ejparse.o form.o h.o handler.o mime.o misc.o page.o ringq.o rom.o sock.o sockGen.o  security.o sym.o uemf.o url.o value.o md5c.o um.o umui.o websda.o emfdb.o webrom.o webs.o websuemf.o internet.o utils.o wireless.o firewall.o management.o goahead.o wps.o usb.o -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib    -lc -lgcc  -lnvram
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-strip --remove-section=.note --remove-section=.comment goahead
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/src'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/cgi-src'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/cgi-src'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead'
+[ ! -d "igmpproxy" ] || ( touch igmpproxy/.sgbuilt_user && make -j1 -C igmpproxy ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy'
+for i in src  ; do make -C $i all || exit ; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy/src'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy/src'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy'
+[ ! -d "inadyn" ] || ( touch inadyn/.sgbuilt_user && make -j1 -C inadyn ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/inadyn'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/inadyn'
+[ ! -d "iptables" ] || ( touch iptables/.sgbuilt_user && make -j1 -C iptables ) || exit $?
+[: 1: -a: unexpected operator
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/iptables'
+Extensions found: IPv4:CLUSTERIP IPv4:dccp IPv4:IMQ IPv4:iprange IPv4:recent IPv4:ROUTE IPv4:string IPv4:time IPv6:ah IPv6:frag IPv6:IMQ IPv6:ipv6header IPv6:REJECT IPv6:rt
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/iptables'
+[ ! -d "linux-igd" ] || ( touch linux-igd/.sgbuilt_user && make -j1 -C linux-igd ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/linux-igd'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/linux-igd'
+[ ! -d "lldt" ] || ( touch lldt/.sgbuilt_user && make -j1 -C lldt ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/lldt'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/lldt'
+[ ! -d "mkdosfs-2.11" ] || ( touch mkdosfs-2.11/.sgbuilt_user && make -j1 -C mkdosfs-2.11 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/mkdosfs-2.11'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/mkdosfs-2.11'
+[ ! -d "mtd_write" ] || ( touch mtd_write/.sgbuilt_user && make -j1 -C mtd_write ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/mtd_write'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/mtd_write'
+[ ! -d "netcat" ] || ( touch netcat/.sgbuilt_user && make -j1 -C netcat ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+make -e nc -w XFLAGS='-DLINUX' 
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+make[4]: `nc' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+[ ! -d "ntfs-3g" ] || ( touch ntfs-3g/.sgbuilt_user && make -j1 -C ntfs-3g ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g'
+for i in libfuse-lite src ; do make -C $i all || exit ; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/libfuse-lite'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libfuse-lite.a fuse_loop.o fuse_lowlevel.o fuse_mt.o fuse_session.o fusermount.o mount.o fuse.o fuse_kern_chan.o fuse_loop_mt.o fuse_opt.o fuse_signals.o helper.o mount_util.o
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/libfuse-lite'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/src'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -o ntfs-3g  ntfs-3g.o ../libfuse-lite/libfuse-lite.a -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -L/home/felix/qodome/ralink_sdk-master/source/lib/libntfs-3g -lc -lgcc  -lntfs-3g -lpthread
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/src'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g'
+[ ! -d "ntpclient" ] || ( touch ntpclient/.sgbuilt_user && make -j1 -C ntpclient ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntpclient'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntpclient'
+[ ! -d "openl2tp-1.6" ] || ( touch openl2tp-1.6/.sgbuilt_user && make -j1 -C openl2tp-1.6 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6'
+make -C usl -w EXTRA_CFLAGS=" "
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/usl'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/usl'
+make -C cli -w EXTRA_CFLAGS=" "
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/cli'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/cli'
+make -C plugins -w EXTRA_CFLAGS=" "
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/plugins'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/plugins'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6'
+[ ! -d "ppp-2.4.2" ] || ( touch ppp-2.4.2/.sgbuilt_user && make -j1 -C ppp-2.4.2 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2'
+for d in pppd pppd/plugins; do make -w -C $d all; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins'
+for d in rp-pppoe pppol2tp pppopptp; do make -w -C $d all; done
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/rp-pppoe'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/rp-pppoe'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppol2tp'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppol2tp'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppopptp'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppopptp'
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2'
+[ ! -d "proftpd" ] || ( touch proftpd/.sgbuilt_user && make -j1 -C proftpd ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd'
+for i in lib src modules  ; do make -C $i all || exit ; done 
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib'
+make -C libcap
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib/libcap'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libcap.a cap_alloc.o cap_proc.o cap_extint.o cap_flag.o cap_text.o cap_sys.o
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib/libcap'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-ar cr libsupp.a pr_fnmatch.o sstrncpy.o strsep.o vsnprintf.o glibc-glob.o glibc-hstrerror.o glibc-mkstemp.o pr-syslog.o pwgrent.o
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/src'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/src'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/modules'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/modules'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -o proftpd src/main.o src/timers.o src/sets.o src/pool.o src/table.o src/regexp.o src/dirtree.o src/support.o src/netaddr.o src/inet.o src/child.o src/parser.o src/log.o src/lastlog.o src/xferlog.o src/bindings.o src/netacl.o src/class.o src/scoreboard.o src/help.o src/feat.o src/netio.o src/response.o src/ident.o src/data.o src/modules.o src/display.o src/auth.o src/fsio.o src/mkhome.o src/ctrls.o src/event.o src/var.o src/trace.o src/utf8.o src/proctitle.o src/pidfile.o src/env.o modules/mod_core.o modules/mod_xfer.o modules/mod_auth_unix.o modules/mod_auth_file.o modules/mod_auth.o modules/mod_ls.o modules/mod_log.o modules/mod_site.o modules/mod_delay.o modules/mod_cap.o modules/module_glue.o  -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Llib -Llib/libcap -lcap -lsupp -lcrypt
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd'
+[ ! -d "radvd-1.0" ] || ( touch radvd-1.0/.sgbuilt_user && make -j1 -C radvd-1.0 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/radvd-1.0'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/radvd-1.0'
+[ ! -d "rp-pppoe-3.8" ] || ( touch rp-pppoe-3.8/.sgbuilt_user && make -j1 -C rp-pppoe-3.8 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8'
+for i in src  ; do make -C $i all || exit ; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8/src'
+
+Type 'make install' as root to install the software.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8/src'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8'
+[ ! -d "rt2880_app" ] || ( touch rt2880_app/.sgbuilt_user && make -j1 -C rt2880_app ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app'
+for i in reg ated mii_mgr nvram gpio spicmd scripts switch ; do make -C $i all || exit ; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/reg'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/reg'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/ated'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/ated'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/mii_mgr'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/mii_mgr'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/nvram'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char   -c -o nvram_daemon.o nvram_daemon.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -lnvram -o nvram_daemon nvram_daemon.o -lc -lgcc 
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char   -c -o ralink_init.o ralink_init.c
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-gcc  -O2 -fomit-frame-pointer -pipe  -Dlinux -D__linux__ -Dunix -DEMBED -I/home/felix/qodome/ralink_sdk-master/source/lib/include -I/home/felix/qodome/ralink_sdk-master/source  -I/home/felix/qodome/ralink_sdk-master/source/lib/libnvram -I/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/drivers/char -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -Wl,--fatal-warnings -L/home/felix/qodome/ralink_sdk-master/source/lib/lib -lnvram -o ralink_init ralink_init.o -lc -lgcc 
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/nvram'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/gpio'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/gpio'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/spicmd'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/spicmd'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/scripts'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/scripts'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/switch'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/switch'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app'
+[ ! -d "samba-3.0.2" ] || ( touch samba-3.0.2/.sgbuilt_user && make -j1 -C samba-3.0.2 ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2'
+make -C source
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+Using FLAGS =  -O2 -I./popt -Iinclude -I./include -I./ubiqx -I./smbwrapper  -I.  -I. -I../../acl/include    
+      LIBS = -lcrypt -lnsl -ldl
+      LDSHFLAGS = -shared  -Wl
+      LDFLAGS = 
+make smbd/build_options.c; \
+	make include/proto.h; \
+	make include/build_env.h; \
+	make include/wrepld_proto.h; \
+	make nsswitch/winbindd_proto.h; \
+	make web/swat_proto.h; \
+	make client/client_proto.h; \
+	make utils/net_proto.h
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `smbd/build_options.c' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `include/proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `include/build_env.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `include/wrepld_proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `nsswitch/winbindd_proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `web/swat_proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `client/client_proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `utils/net_proto.h' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make bin/smbd bin/nmbd    bin/smbpasswd bin/libbigballofmud.so    nsswitch/libnss_winbind.so nsswitch/libnss_wins.so libsmbclient bin/recycle.so bin/audit.so bin/extd_audit.so bin/netatalk.so bin/fake_perms.so bin/default_quota.so bin/readonly.so bin/cap.so    bin/CP850.so bin/CP437.so 
+make[5]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[5]: `bin/smbd' is up to date.
+make[5]: `bin/nmbd' is up to date.
+make[5]: `bin/smbpasswd' is up to date.
+make[5]: `bin/libbigballofmud.so' is up to date.
+make[5]: `nsswitch/libnss_winbind.so' is up to date.
+make[5]: `nsswitch/libnss_wins.so' is up to date.
+make[5]: Nothing to be done for `libsmbclient'.
+make[5]: `bin/recycle.so' is up to date.
+make[5]: `bin/audit.so' is up to date.
+make[5]: `bin/extd_audit.so' is up to date.
+make[5]: `bin/netatalk.so' is up to date.
+make[5]: `bin/fake_perms.so' is up to date.
+make[5]: `bin/default_quota.so' is up to date.
+make[5]: `bin/readonly.so' is up to date.
+make[5]: `bin/cap.so' is up to date.
+make[5]: `bin/CP850.so' is up to date.
+make[5]: `bin/CP437.so' is up to date.
+make[5]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2'
+[ ! -d "tcpdump" ] || ( touch tcpdump/.sgbuilt_user && make -j1 -C tcpdump ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/tcpdump'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/tcpdump'
+[ ! -d "wireless_tools" ] || ( touch wireless_tools/.sgbuilt_user && make -j1 -C wireless_tools ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/wireless_tools'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/wireless_tools'
+[ ! -d "wsc_upnp" ] || ( touch wsc_upnp/.sgbuilt_user && make -j1 -C wsc_upnp ) || exit $?
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/wsc_upnp'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/wsc_upnp'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user'
+. linux-2.6.21.x/.config; if [ "$CONFIG_MODULES" = "y" ]; then \
+		[ -d linux-2.6.21.x/modules ] || mkdir linux-2.6.21.x/modules; \
+		make  ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -C linux-2.6.21.x modules; \
+	fi
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+  CHK     include/linux/version.h
+  CHK     include/linux/utsrelease.h
+  Building modules, stage 2.
+  MODPOST 1 modules
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+for dir in vendors /home/felix/qodome/ralink_sdk-master/source/vendors include uClibc++ user lib ; do [ ! -d $dir ] || make ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -C $dir romfs || exit 1 ; done
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make -C /home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. dir_v=/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. -f /home/felix/qodome/ralink_sdk-master/source/vendors/vendors-common.mak romfs
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+[ -d /home/felix/qodome/ralink_sdk-master/source/romfs/$i ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/romfs
+for i in tmp bin dev dev/pts home etc etc_ro etc_ro/web etc_ro/ppp etc_ro/ppp/peers etc_ro/ppp/plugins etc_ro/ppp/3g etc_ro/wlan etc_ro/Wireless etc_ro/xml etc_ro/usb etc_ro/linuxigd etc_ro/Wireless/RT2860AP etc_ro/Wireless/RT61AP etc_ro/Wireless/iNIC lib lib/modules lib/ipsec mnt proc sbin sys media usr usr/bin usr/sbin usr/codepages var ; do \
+		[ -d /home/felix/qodome/ralink_sdk-master/source/romfs/$i ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/romfs/$i; \
+	done
+#generate device node
+./makedevlinks /home/felix/qodome/ralink_sdk-master/source/romfs
+./makedevlinks: 7: source: not found
+romfs-inst.sh /etc_ro/rcS
+romfs-inst.sh /etc_ro/inittab
+romfs-inst.sh /etc_ro/motd
+romfs-inst.sh /etc/fstab
+romfs-inst.sh -S /etc_ro/rt5350sta.ko
+romfs-inst.sh /etc_ro/Wireless/RT2860AP/RT2860_default_novlan
+romfs-inst.sh /etc_ro/Wireless/RT2860AP/RT2860_default_vlan
+romfs-inst.sh /etc_ro/wlan/RT5350_AP_1T1R_V1_0.bin
+romfs-inst.sh -e CONFIG_RT3572_AP /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT5572_AP /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT3680_iNIC_AP iNIC_ap.dat /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT3572_AP /etc_ro/Wireless/iNIC/RT3572_USB_2T2R_LNA_without_ALC_V1_4.bin
+romfs-inst.sh -e CONFIG_RT5572_AP /etc_ro/Wireless/iNIC/RT5572_USB_2T2R_V1_3.BIN
+romfs-inst.sh -e CONFIG_RT3680_iNIC_AP /etc_ro/Wireless/iNIC/RT3680_iNIC.bin
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/RT2860APCard.dat
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/iNIC/RT3572_USB_2T2R_LNA_without_ALC_V1_4.bin
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/iNIC/RT5572_USB_2T2R_V1_3.BIN
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make -C /home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. dir_v=/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. -f /home/felix/qodome/ralink_sdk-master/source/vendors/vendors-common.mak romfs
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+[ -d /home/felix/qodome/ralink_sdk-master/source/romfs/$i ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/romfs
+for i in tmp bin dev dev/pts home etc etc_ro etc_ro/web etc_ro/ppp etc_ro/ppp/peers etc_ro/ppp/plugins etc_ro/ppp/3g etc_ro/wlan etc_ro/Wireless etc_ro/xml etc_ro/usb etc_ro/linuxigd etc_ro/Wireless/RT2860AP etc_ro/Wireless/RT61AP etc_ro/Wireless/iNIC lib lib/modules lib/ipsec mnt proc sbin sys media usr usr/bin usr/sbin usr/codepages var ; do \
+		[ -d /home/felix/qodome/ralink_sdk-master/source/romfs/$i ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/romfs/$i; \
+	done
+#generate device node
+./makedevlinks /home/felix/qodome/ralink_sdk-master/source/romfs
+./makedevlinks: 7: source: not found
+romfs-inst.sh /etc_ro/rcS
+romfs-inst.sh /etc_ro/inittab
+romfs-inst.sh /etc_ro/motd
+romfs-inst.sh /etc/fstab
+romfs-inst.sh -S /etc_ro/rt5350sta.ko
+romfs-inst.sh /etc_ro/Wireless/RT2860AP/RT2860_default_novlan
+romfs-inst.sh /etc_ro/Wireless/RT2860AP/RT2860_default_vlan
+romfs-inst.sh /etc_ro/wlan/RT5350_AP_1T1R_V1_0.bin
+romfs-inst.sh -e CONFIG_RT3572_AP /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT5572_AP /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT3680_iNIC_AP iNIC_ap.dat /etc_ro/Wireless/iNIC/RT2860AP.dat
+romfs-inst.sh -e CONFIG_RT3572_AP /etc_ro/Wireless/iNIC/RT3572_USB_2T2R_LNA_without_ALC_V1_4.bin
+romfs-inst.sh -e CONFIG_RT5572_AP /etc_ro/Wireless/iNIC/RT5572_USB_2T2R_V1_3.BIN
+romfs-inst.sh -e CONFIG_RT3680_iNIC_AP /etc_ro/Wireless/iNIC/RT3680_iNIC.bin
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/RT2860APCard.dat
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/iNIC/RT3572_USB_2T2R_LNA_without_ALC_V1_4.bin
+romfs-inst.sh -e CONFIG_RTUSB_AP /etc_ro/Wireless/iNIC/RT5572_USB_2T2R_V1_3.BIN
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/uClibc++'
+make[1]: Nothing to be done for `romfs'.
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/uClibc++'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user'
+for i in 802.1x accel-pptp busybox goahead igmpproxy inadyn iptables linux-igd lldt mkdosfs-2.11 mtd_write netcat ntfs-3g ntpclient openl2tp-1.6 ppp-2.4.2 proftpd radvd-1.0 rp-pppoe-3.8 rt2880_app samba-3.0.2 tcpdump wireless_tools wsc_upnp /home/felix/qodome/ralink_sdk-master/source/prop ; do \
+		[ ! -d $i ] || make -C $i romfs || exit $? ; \
+	done
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/802.1x'
+romfs-inst.sh rt2860apd /bin/rt2860apd
+ln -sf rt2860apd /home/felix/qodome/ralink_sdk-master/source/romfs/bin/rtinicapd
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/802.1x'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/accel-pptp'
+romfs-inst.sh /sbin/accel-pptp.sh
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/accel-pptp'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/busybox'
+  LINK    busybox_unstripped
+Trying libraries: crypt m
+ Library crypt is needed
+ Library m is not needed
+ Library crypt is needed
+Final link with: crypt
+  ../../romfs/bin/ash -> busybox
+  ../../romfs/bin/cat -> busybox
+  ../../romfs/bin/chmod -> busybox
+  ../../romfs/bin/cp -> busybox
+  ../../romfs/bin/date -> busybox
+  ../../romfs/bin/dmesg -> busybox
+  ../../romfs/bin/echo -> busybox
+  ../../romfs/bin/grep -> busybox
+  ../../romfs/bin/hostname -> busybox
+  ../../romfs/bin/ip -> busybox
+  ../../romfs/bin/kill -> busybox
+  ../../romfs/bin/login -> busybox
+  ../../romfs/bin/ls -> busybox
+  ../../romfs/bin/mkdir -> busybox
+  ../../romfs/bin/mknod -> busybox
+  ../../romfs/bin/more -> busybox
+  ../../romfs/bin/mount -> busybox
+  ../../romfs/bin/netstat -> busybox
+  ../../romfs/bin/ping -> busybox
+  ../../romfs/bin/ping6 -> busybox
+  ../../romfs/bin/ps -> busybox
+  ../../romfs/bin/pwd -> busybox
+  ../../romfs/bin/rm -> busybox
+  ../../romfs/bin/sed -> busybox
+  ../../romfs/bin/sh -> busybox
+  ../../romfs/bin/sleep -> busybox
+  ../../romfs/bin/touch -> busybox
+  ../../romfs/bin/umount -> busybox
+  ../../romfs/bin/vi -> busybox
+  ../../romfs/init -> bin/busybox
+  ../../romfs/sbin/arp -> ../bin/busybox
+  ../../romfs/sbin/fdisk -> ../bin/busybox
+  ../../romfs/sbin/halt -> ../bin/busybox
+  ../../romfs/sbin/ifconfig -> ../bin/busybox
+  ../../romfs/sbin/init -> ../bin/busybox
+  ../../romfs/sbin/insmod -> ../bin/busybox
+  ../../romfs/sbin/klogd -> ../bin/busybox
+  ../../romfs/sbin/logread -> ../bin/busybox
+  ../../romfs/sbin/lsmod -> ../bin/busybox
+  ../../romfs/sbin/mdev -> ../bin/busybox
+  ../../romfs/sbin/poweroff -> ../bin/busybox
+  ../../romfs/sbin/reboot -> ../bin/busybox
+  ../../romfs/sbin/rmmod -> ../bin/busybox
+  ../../romfs/sbin/route -> ../bin/busybox
+  ../../romfs/sbin/syslogd -> ../bin/busybox
+  ../../romfs/sbin/udhcpc -> ../bin/busybox
+  ../../romfs/sbin/vconfig -> ../bin/busybox
+  ../../romfs/usr/bin/[ -> ../../bin/busybox
+  ../../romfs/usr/bin/[[ -> ../../bin/busybox
+  ../../romfs/usr/bin/basename -> ../../bin/busybox
+  ../../romfs/usr/bin/clear -> ../../bin/busybox
+  ../../romfs/usr/bin/expr -> ../../bin/busybox
+  ../../romfs/usr/bin/find -> ../../bin/busybox
+  ../../romfs/usr/bin/free -> ../../bin/busybox
+  ../../romfs/usr/bin/killall -> ../../bin/busybox
+  ../../romfs/usr/bin/logger -> ../../bin/busybox
+  ../../romfs/usr/bin/nc -> ../../bin/busybox
+  ../../romfs/usr/bin/printf -> ../../bin/busybox
+  ../../romfs/usr/bin/telnet -> ../../bin/busybox
+  ../../romfs/usr/bin/test -> ../../bin/busybox
+  ../../romfs/usr/bin/tftp -> ../../bin/busybox
+  ../../romfs/usr/bin/top -> ../../bin/busybox
+  ../../romfs/usr/bin/uptime -> ../../bin/busybox
+  ../../romfs/usr/bin/wc -> ../../bin/busybox
+  ../../romfs/usr/bin/which -> ../../bin/busybox
+  ../../romfs/usr/sbin/brctl -> ../../bin/busybox
+  ../../romfs/usr/sbin/chpasswd -> ../../bin/busybox
+  ../../romfs/usr/sbin/telnetd -> ../../bin/busybox
+  ../../romfs/usr/sbin/udhcpd -> ../../bin/busybox
+
+
+--------------------------------------------------
+You will probably need to make your busybox binary
+setuid root to ensure all configured applets will
+work properly.
+--------------------------------------------------
+
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/busybox'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead'
+romfs-inst.sh /etc_ro/web
+2419 blocks
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/internet/wan_simple.asp
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/wireless/mesh.asp
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/wireless/ant_diversity.asp
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/station
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/wps/wps_sta.asp
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/usb/USHARE*
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/usb/UVC*
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/usb/P910ND*
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/usb/iTunes*
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/media
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/adm/wizard.asp
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/wireless/wds.asp
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/wps/wps_unique.asp
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/lang/zhtw
+rm -rf /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/web/lang/zhcn
+for i in src cgi-src ; do make -C $i romfs ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/src'
+romfs-inst.sh /bin/goahead
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/src'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/cgi-src'
+romfs-inst.sh /etc_ro/web/cgi-bin/upload.cgi 
+romfs-inst.sh /etc_ro/web/cgi-bin/upload_bootloader.cgi
+romfs-inst.sh reboot.sh /etc_ro/web/cgi-bin/reboot.sh
+romfs-inst.sh ExportSettings.sh /etc_ro/web/cgi-bin/ExportSettings.sh
+romfs-inst.sh upload_settings.cgi  /etc_ro/web/cgi-bin/upload_settings.cgi
+romfs-inst.sh history.sh  /etc_ro/web/cgi-bin/history.sh	
+romfs-inst.sh /home/felix/qodome/ralink_sdk-master/source/History  /etc_ro/web/cgi-bin/History
+romfs-inst.sh usb_upgrade.cgi /etc_ro/web/cgi-bin/usb_upgrade.cgi
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead/cgi-src'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/goahead'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy'
+for i in src  ; do make -C $i romfs ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy/src'
+romfs-inst.sh /bin/igmpproxy
+romfs-inst.sh /bin/igmpproxy.sh
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy/src'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/igmpproxy'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/inadyn'
+romfs-inst.sh  bin/linux/inadyn /bin/inadyn
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/inadyn'
+[: 1: -a: unexpected operator
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/iptables'
+romfs-inst.sh /bin/iptables
+romfs-inst.sh -d /etc_ro/l7-protocols
+202 blocks
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/iptables'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/linux-igd'
+romfs-inst.sh /bin/upnpd
+romfs-inst.sh /bin/upnp_xml.sh
+romfs-inst.sh etc/upnpd.conf /etc_ro/linuxigd/upnpd.conf
+romfs-inst.sh etc/ligd.gif /etc_ro/linuxigd/ligd.gif
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/linux-igd'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/lldt'
+romfs-inst.sh /bin/lld2d
+romfs-inst.sh /etc_ro/lld2d.conf
+romfs-inst.sh /etc_ro/icon.ico
+romfs-inst.sh /etc_ro/icon.large.ico
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/lldt'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/mkdosfs-2.11'
+romfs-inst.sh /sbin/mkdosfs
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/mkdosfs-2.11'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/mtd_write'
+romfs-inst.sh /bin/mtd_write
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/mtd_write'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+romfs-inst.sh -e CONFIG_USER_NETCAT /bin/nc
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/netcat'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g'
+for i in libfuse-lite src ; do make -C $i romfs || exit ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/libfuse-lite'
+make[3]: Nothing to be done for `romfs'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/libfuse-lite'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/src'
+romfs-inst.sh ntfs-3g /bin/ntfs-3g
+ln -sf ntfs-3g  /home/felix/qodome/ralink_sdk-master/source/romfs/bin/mount.ntfs-3g
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g/src'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntfs-3g'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ntpclient'
+romfs-inst.sh -e CONFIG_USER_NTPCLIENT_NTPCLIENT /bin/ntpclient
+romfs-inst.sh -e CONFIG_USER_NTPCLIENT_ADJTIMEX /bin/adjtimex
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ntpclient'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6'
+romfs-inst.sh /sbin/openl2tpd
+romfs-inst.sh /sbin/openl2tp.sh
+make -C plugins romfs
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/plugins'
+romfs-inst.sh /etc_ro/ppp/plugins/ppp_unix.so
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6/plugins'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/openl2tp-1.6'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2'
+for d in pppd pppd/plugins; do make -w -C $d romfs; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd'
+romfs-inst.sh /bin/pppd
+romfs-inst.sh /etc_ro/ppp/ip-up
+ln -sf /etc/3g /home/felix/qodome/ralink_sdk-master/source/romfs/etc_ro/ppp/peers/3g 
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins'
+for d in rp-pppoe pppol2tp pppopptp; do make -w -C $d romfs; done
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/rp-pppoe'
+romfs-inst.sh /etc_ro/ppp/plugins/rp-pppoe.so
+romfs-inst.sh /sbin/pppoe.sh
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/rp-pppoe'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppol2tp'
+romfs-inst.sh /etc_ro/ppp/plugins/pppol2tp.so
+romfs-inst.sh /etc_ro/ppp/plugins/openl2tp.so
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppol2tp'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppopptp'
+romfs-inst.sh /etc_ro/ppp/plugins/pptp.so
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins/pppopptp'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2/pppd/plugins'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/ppp-2.4.2'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd'
+for i in lib src modules  ; do make -C $i romfs || exit ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib'
+make[3]: Nothing to be done for `romfs'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/lib'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/src'
+make[3]: Nothing to be done for `romfs'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/src'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/modules'
+make[3]: Nothing to be done for `romfs'.
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd/modules'
+romfs-inst.sh /bin/proftpd
+romfs-inst.sh /bin/proftpd.sh
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/proftpd'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/radvd-1.0'
+for i in radvd  ; do romfs-inst.sh /sbin/$i ; done
+romfs-inst.sh /bin/radvd.sh
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/radvd-1.0'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8'
+for i in src  ; do make -C $i romfs || exit ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8/src'
+romfs-inst.sh -e CONFIG_USER_RPPPPOE_RELAY /sbin/pppoe-relay
+romfs-inst.sh -e CONFIG_USER_RPPPPOE_SNIFF /sbin/pppoe-sniff
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8/src'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rp-pppoe-3.8'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app'
+for i in reg ated mii_mgr nvram gpio spicmd scripts switch ; do make -C $i romfs || exit ; done
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/reg'
+romfs-inst.sh /bin/reg
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/reg'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/ated'
+romfs-inst.sh /bin/ated
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/ated'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/mii_mgr'
+romfs-inst.sh /bin/mii_mgr
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/mii_mgr'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/nvram'
+for i in nvram_daemon ralink_init ; do romfs-inst.sh /bin/$i ; done
+ln -sf ralink_init nvram_get
+ln -sf ralink_init nvram_set
+mv -f nvram_get /home/felix/qodome/ralink_sdk-master/source/romfs/bin
+mv -f nvram_set /home/felix/qodome/ralink_sdk-master/source/romfs/bin
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/nvram'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/gpio'
+romfs-inst.sh /bin/gpio
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/gpio'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/spicmd'
+romfs-inst.sh /bin/spicmd
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/spicmd'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/scripts'
+sed -e '/^#/d' /home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/.config > .config
+sed -e '/^#/d' /home/felix/qodome/ralink_sdk-master/source/config/.config >> .config
+chmod 755 .config
+romfs-inst.sh .config /sbin/config.sh
+for i in 3g.sh autoconn3G.sh automount.sh chpasswd.sh config-3g-ppp.sh config-dns.sh config-dslite.sh config-igmpproxy.sh config-iTunes.sh config-l2tp.sh config-powersave.sh config-pppoe.sh config-pptp.sh config-udhcpd.sh config-vlan.sh cpubusy.sh ddns.sh firewall.sh global.sh greenap.sh internet.sh ipv6_logo.sh lan.sh mini-snmp.sh nat.sh net-snmp.sh ntp.sh snmp.sh snort.sh storage.sh tr069.sh udhcpc.sh vpn-passthru.sh wan.sh wifi_unload.sh ; do \
+		romfs-inst.sh $i /sbin/$i ; \
+	done
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/3g.sh
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/config-3g-ppp.sh
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/greenap.sh
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/tr069.sh
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/mini-snmp.sh
+rm /home/felix/qodome/ralink_sdk-master/source/romfs/sbin/net-snmp.sh
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/scripts'
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/switch'
+romfs-inst.sh /bin/switch
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app/switch'
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/rt2880_app'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2'
+make -C source
+make[3]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+Using FLAGS =  -O2 -I./popt -Iinclude -I./include -I./ubiqx -I./smbwrapper  -I.  -I. -I../../acl/include    
+      LIBS = -lcrypt -lnsl -ldl
+      LDSHFLAGS = -shared  -Wl
+      LDFLAGS = 
+make smbd/build_options.c; \
+	make include/proto.h; \
+	make include/build_env.h; \
+	make include/wrepld_proto.h; \
+	make nsswitch/winbindd_proto.h; \
+	make web/swat_proto.h; \
+	make client/client_proto.h; \
+	make utils/net_proto.h
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `smbd/build_options.c' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `include/proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `include/build_env.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `include/wrepld_proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `nsswitch/winbindd_proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `web/swat_proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `client/client_proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `utils/net_proto.h' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make bin/smbd bin/nmbd    bin/smbpasswd bin/libbigballofmud.so    nsswitch/libnss_winbind.so nsswitch/libnss_wins.so libsmbclient bin/recycle.so bin/audit.so bin/extd_audit.so bin/netatalk.so bin/fake_perms.so bin/default_quota.so bin/readonly.so bin/cap.so    bin/CP850.so bin/CP437.so 
+make[4]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[4]: `bin/smbd' is up to date.
+make[4]: `bin/nmbd' is up to date.
+make[4]: `bin/smbpasswd' is up to date.
+make[4]: `bin/libbigballofmud.so' is up to date.
+make[4]: `nsswitch/libnss_winbind.so' is up to date.
+make[4]: `nsswitch/libnss_wins.so' is up to date.
+make[4]: Nothing to be done for `libsmbclient'.
+make[4]: `bin/recycle.so' is up to date.
+make[4]: `bin/audit.so' is up to date.
+make[4]: `bin/extd_audit.so' is up to date.
+make[4]: `bin/netatalk.so' is up to date.
+make[4]: `bin/fake_perms.so' is up to date.
+make[4]: `bin/default_quota.so' is up to date.
+make[4]: `bin/readonly.so' is up to date.
+make[4]: `bin/cap.so' is up to date.
+make[4]: `bin/CP850.so' is up to date.
+make[4]: `bin/CP437.so' is up to date.
+make[4]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+make[3]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2/source'
+romfs-inst.sh source/bin/CP850.so /lib/CP850.so
+romfs-inst.sh source/bin/CP437.so /lib/CP437.so
+romfs-inst.sh source/bin/libbigballofmud.so /lib/libbigballofmud.so
+ln -snf libbigballofmud.so /home/felix/qodome/ralink_sdk-master/source/romfs/lib/libbigballofmud.so.0
+romfs-inst.sh source/bin/nmbd /sbin/nmbd
+romfs-inst.sh source/bin/smbd /sbin/smbd
+romfs-inst.sh source/bin/smbpasswd /sbin/smbpasswd
+romfs-inst.sh /bin/samba.sh
+romfs-inst.sh /bin/samba_add_dir.sh
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/samba-3.0.2'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/tcpdump'
+romfs-inst.sh /sbin/tcpdump
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/tcpdump'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/wireless_tools'
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWCONFIG /bin/iwconfig
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWLIST   /bin/iwlist
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWPRIV   /bin/iwpriv
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWSPY    /bin/iwspy
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWGETID  /bin/iwgetid
+romfs-inst.sh -e CONFIG_USER_WIRELESS_TOOLS_IWEVENT  /bin/iwevent
+romfs-inst.sh /lib/libiw.so.29
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/wireless_tools'
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/user/wsc_upnp'
+romfs-inst.sh wscd /bin/wscd
+romfs-inst.sh xml/WFADeviceDesc.xml /etc_ro/xml/WFADeviceDesc.xml
+romfs-inst.sh xml/WFAWLANConfigSCPD.xml /etc_ro/xml/WFAWLANConfigSCPD.xml
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user/wsc_upnp'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/user'
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/lib'
+install -d /home/felix/qodome/ralink_sdk-master/source/romfs/lib
+install -m 644 lib/lib*-0.9.28.so \
+		/home/felix/qodome/ralink_sdk-master/source/romfs/lib
+cp -dRf lib/*.so* /home/felix/qodome/ralink_sdk-master/source/romfs/lib
++ install -m 755 lib/ld-uClibc-0.9.28.so /home/felix/qodome/ralink_sdk-master/source/romfs/lib
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/lib'
+. linux-2.6.21.x/.config; if [ "$CONFIG_MODULES" = "y" ]; then \
+		[ -d /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules; \
+		make  ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -C linux-2.6.21.x INSTALL_MOD_PATH=/home/felix/qodome/ralink_sdk-master/source/romfs DEPMOD="../user/busybox/examples/depmod.pl" modules_install; \
+		rm -f /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules/*/build; \
+		rm -f /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules/*/source; \
+		find /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules -type f -name "*o" | xargs -r "/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc-strip -R .comment -R .note -g --strip-unneeded; \
+	fi
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+Warning: you may need to install module-init-tools
+See http://www.codemonkey.org.uk/docs/post-halloween-2.6.txt
+  INSTALL drivers/char/hw_random/rng-core.ko
+if [ -r System.map -a -x ../user/busybox/examples/depmod.pl ]; then ../user/busybox/examples/depmod.pl -F System.map -b /home/felix/qodome/ralink_sdk-master/source/romfs/lib/modules/2.6.21 ; fi
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+make ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -C vendors romfs.post
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make -C /home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. dir_v=/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. -f /home/felix/qodome/ralink_sdk-master/source/vendors/vendors-common.mak romfs.post
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+[ -d /home/felix/qodome/ralink_sdk-master/source/images ] || mkdir -p /home/felix/qodome/ralink_sdk-master/source/images
+#Squash File System
+rm -f /home/felix/qodome/ralink_sdk-master/source/images/ramdisk  
+#linux2.6.x support squashfs with lzma
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+find /home/felix/qodome/ralink_sdk-master/source/romfs/. -name CVS | xargs -r rm -rf
+make  ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -j1 -C linux-2.6.21.x  || exit 1
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+  CHK     include/linux/version.h
+  CHK     include/linux/utsrelease.h
+  CHK     include/linux/compile.h
+  GEN     usr/initramfs_data.cpio.gz
+
+LZMA 4.43 Copyright (c) 1999-2006 Igor Pavlov  2006-06-04
+  AS      usr/initramfs_data.o
+  LD      usr/built-in.o
+  GEN     .version
+  CHK     include/linux/compile.h
+  UPD     include/linux/compile.h
+  CC      init/version.o
+  LD      init/built-in.o
+  LD      .tmp_vmlinux1
+  KSYM    .tmp_kallsyms1.S
+  AS      .tmp_kallsyms1.o
+  LD      .tmp_vmlinux2
+  KSYM    .tmp_kallsyms2.S
+  AS      .tmp_kallsyms2.o
+  LD      .tmp_vmlinux3
+  KSYM    .tmp_kallsyms3.S
+  AS      .tmp_kallsyms3.o
+  LD      vmlinux
+  SYSMAP  System.map
+  SYSMAP  .tmp_System.map
+  MODPOST vmlinux
+  Building modules, stage 2.
+  MODPOST 1 modules
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x'
+if [ -f linux-2.6.21.x/vmlinux ]; then \
+		ln -f linux-2.6.21.x/vmlinux linux-2.6.21.x/linux ; \
+	fi
+[ -d /home/felix/qodome/ralink_sdk-master/source/images ] || mkdir /home/felix/qodome/ralink_sdk-master/source/images
+make ARCH=mips CROSS_COMPILE="/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin"/mipsel-linux-uclibc- -C vendors image
+make[1]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+make -C /home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. dir_v=/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350/. -f /home/felix/qodome/ralink_sdk-master/source/vendors/vendors-common.mak image
+make[2]: Entering directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+/home/felix/qodome/RT288x_SDK/toolchain/buildroot-gcc342/bin/mipsel-linux-uclibc-objcopy -O binary -R .note -R .comment -S /home/felix/qodome/ralink_sdk-master/source/linux-2.6.21.x/vmlinux  /home/felix/qodome/ralink_sdk-master/source/images/zImage
+cd /home/felix/qodome/ralink_sdk-master/source/images ; rm -f /home/felix/qodome/ralink_sdk-master/source/images/zImage.*; lzma -9 -f -S .lzma /home/felix/qodome/ralink_sdk-master/source/images/zImage
+Image Name:   Linux Kernel Image
+Created:      Thu Jan  8 21:39:30 2015
+Image Type:   MIPS Linux Kernel Image (lzma compressed)
+Data Size:    4050389 Bytes = 3955.46 kB = 3.86 MB
+Load Address: 0x80000000
+Entry Point:  0x802CB000
+Kernel Size:  0x00000000
+make[2]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors/Ralink/RT5350'
+make[1]: Leaving directory `/home/felix/qodome/ralink_sdk-master/source/vendors'
+cp /home/felix/qodome/ralink_sdk-master/source/images/felix_uImage /tftpboot
