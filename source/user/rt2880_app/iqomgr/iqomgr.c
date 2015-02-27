@@ -7,9 +7,19 @@
 #include <linux/autoconf.h>
 #include "spi_drv.h"
 #include "ralink_gpio.h"
-#include "i2c_drv.h"
+#include <time.h>
+#include "jansson.h"
 
 #define GPIO_DEV	"/dev/gpio"
+
+#define FAIL        0
+#define SUCCESS     1
+
+#define NRF_CMD_POLL            0x00
+
+#define NRF_IDLE_NOTIFY         0x20
+#define NRF_ACC_NOTIFY          0x21
+#define NRF_TEMP_NOTIFY         0x22
 
 enum {
 	gpio_in,
@@ -24,6 +34,13 @@ enum {
 int signal_up = 0;
 int signal_down = 0;
 int interrupted = 0;
+
+int acc_count = 0;
+int period_count = 0;
+int max_period_count = 12;      // By default dump data every hour
+int nrf_link_up = 0;
+time_t previous_time = 0;
+json_t *json_array_ptr = NULL;
 
 void signal_handler(int signum)
 {
@@ -205,24 +222,58 @@ int gpio_write_int(int pin_num, int value)
 	return 0;
 }
 
-int intermcu_tx(unsigned char type, unsigned char len, unsigned char *buf)
+void interrupt_handler(int s)
+{
+    interrupted = 1;
+    printf("Interrupted, quit...\n");
+}
+
+// Issue interface reset towards nRF51822
+void reset_nrf_link(void)
+{
+    gpio_write_int(11, 0);
+    sleep(1);
+    gpio_write_int(11, 1);
+    sleep(1);
+    gpio_write_int(11, 0);
+    sleep(1);
+    gpio_write_int(11, 1);
+    sleep(1);
+    gpio_write_int(11, 0);
+    sleep(1);
+    printf("nrf link reset done!\n");
+}
+
+int nrf_link_poll(void)
 {
     unsigned char header_buf[2] = {0};
+    unsigned char body_buf[4] = {0};
 	int flag = 0, fd;
-    unsigned char idx;
+    unsigned char cnt;
     SPI_INTERMCU intermcu;
 
     signal_up = signal_down = 0;
+
+    // First cmd: POLL
     gpio_write_int(11, 1);
     
-    while (signal_up == 0) {
+    cnt = 0;
+    while (signal_up == 0 && cnt < 10) {
         usleep(10000);
+        cnt++;
+    }
+    if (signal_up == 0) {
+        printf("nrf link poll failed stage 1!\n");
+        gpio_write_int(11, 0);
+        return FAIL;
     }
     signal_up = 0;
+    gpio_write_int(11, 0);
 
-    header_buf[0] = type;
-    header_buf[1] = len;
+    header_buf[0] = NRF_CMD_POLL;
+    header_buf[1] = 4;
 
+    usleep(10000);
     signal_down = 0;
     fd = open("/dev/spiS0", O_RDONLY); 
     if (fd <= 0) {
@@ -234,87 +285,77 @@ int intermcu_tx(unsigned char type, unsigned char len, unsigned char *buf)
     ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
 	close(fd);
 
-    while (signal_down == 0) {
+    cnt = 0;
+    while (signal_down == 0 && cnt < 10) {
         usleep(10000);
+        cnt++;
+    }
+    if (signal_down == 0) {
+        printf("nrf link poll failed stage 2!\n");
+        return FAIL;
     }
     signal_down = 0;
 
-    while (signal_up == 0) {
+    // Second cmd: the cmd body
+    gpio_write_int(11, 1);
+    
+    cnt = 0;
+    while (signal_up == 0 && cnt < 10) {
         usleep(10000);
+        cnt++;
+    }
+    if (signal_up == 0) {
+        printf("nrf link poll failed stage 3!\n");
+        gpio_write_int(11, 0);
+        return FAIL;
     }
     signal_up = 0;
+    gpio_write_int(11, 0);
 
+    usleep(10000);
     signal_down = 0;
     fd = open("/dev/spiS0", O_RDONLY); 
     if (fd <= 0) {
         printf("Please insmod module spi_drv.o!\n");
         return -1;
     }
-    intermcu.size = len;
-    intermcu.buf = buf;
-    ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
+    intermcu.size = 4;
+    intermcu.buf = body_buf;
+    ioctl(fd, RT2880_SPI_INTERMCU_READ, &intermcu);
 	close(fd);
 
-    while (signal_down == 0) {
+    if (body_buf[0] == NRF_ACC_NOTIFY) {
+        acc_count++;
+        printf("got acc notify\n");
+    } else if (body_buf[0] != NRF_IDLE_NOTIFY) {
+        printf("got unknown notify: 0x%x\n", body_buf[0]);
+    }
+
+    cnt = 0;
+    while (signal_down == 0 && cnt < 10) {
         usleep(10000);
+        cnt++;
+    }
+    if (signal_down == 0) {
+        printf("nrf link poll failed stage 4!\n");
+        return FAIL;
     }
     signal_down = 0;
-
-    gpio_write_int(11, 0);
-
-    return 0;
-}
-
-int open_i2c_fd(void)
-{
-	char nm[16];
-	int fd;
-
-	snprintf(nm, 16, "/dev/%s", I2C_DEV_NAME);
-	if ((fd = open(nm, O_RDONLY)) < 0) {
-		perror(nm);
-		exit(fd);
-	}
-	return fd;
-}
-
-void i2c_write(int fd, unsigned char addr, unsigned char val)
-{
-	struct i2c_write_data wdata;
-
-    wdata.address = addr;
-    wdata.size = 1;
-    wdata.value = val;
-	ioctl(fd, RT5350_SOFT_I2C_WRITE, &wdata);
-}
-
-unsigned char i2c_read(int fd, unsigned char addr)
-{
-    I2C_READ i2c_r;
-    unsigned char data = 0;
-
-    i2c_r.addr = (unsigned char)(addr & 0xFF);
-    i2c_r.data_p = &data;
-    ioctl(fd, RT5350_SOFT_I2C_READ, &i2c_r);
-
-    return data;
-}
-
-void interrupt_handler(int s)
-{
-    interrupted = 1;
-    printf("Interrupted, quit...\n");
+    return SUCCESS;
 }
 
 // Check sensor output and ask NRF to tune the light
 int main(int argc, char *argv[])
 {
-    unsigned char sensor_data[2] = {0};
-    unsigned short sensor_min = 0xFFFF, sensor_max = 0, sensor_tmp;
-    int i2c_fd;
-    unsigned char cfg0 = 0x60, cfg1 = 0xc0;
-    unsigned char value;
+    time_t time_now;
     struct sigaction sigIntHandler;
+    char fn[128] = {0};
+    char cmd_str[128] = {0};
+
+    if (argc == 2) {
+        max_period_count = atoi(argv[1]);
+    }
+    printf("default dump period: %d minutes\n", (max_period_count * 5));
 
     signal(SIGUSR1, signal_handler);
     signal(SIGUSR2, signal_handler);
@@ -323,66 +364,79 @@ int main(int argc, char *argv[])
     sigIntHandler.sa_flags = 0;
     sigaction(SIGINT, &sigIntHandler, NULL);
 
+    // Configure IO port
 	gpio_set_dir(7, gpio_in);
     gpio_enb_irq();
     gpio_reg_info(7);
+    gpio_set_dir(11, gpio_out);
 
-    if ((argc == 2) && (strcmp(argv[1], "init") == 0)) {
-        gpio_set_dir(11, gpio_out);
-        gpio_write_int(11, 0);
-        sleep(1);
-        gpio_write_int(11, 1);
-        sleep(3);
-        gpio_write_int(11, 0);
-        printf("Signal NRF init done!\n");
-        sleep(5);
-    } else if ((argc == 3) && (strcmp(argv[1], "led") == 0)) {
-        value = atoi(argv[2]);
-        if (intermcu_tx(0x01, 1, &value) != 0) {
-            printf("intermcu_tx error!\n");
-        }
-        gpio_dis_irq();
-        return 0;
-    } else if (argc == 2) {
-        cfg1 = strtoul(argv[1], NULL, 16);
-    }
-
-    // Initialize proximity sensor
-    i2c_fd = open_i2c_fd();
-    i2c_write(i2c_fd, 0x01, cfg1);
-
-    while (1) {
-        if (interrupted == 1) {
-            break;
-        }
-        i2c_write(i2c_fd, 0x00, cfg0);
-        sensor_data[0] = i2c_read(i2c_fd, 0x02);
-        sensor_data[1] = i2c_read(i2c_fd, 0x03);
-        printf("%d\n", (unsigned short)sensor_data[1] << 8 | (unsigned short)sensor_data[0]);
-        //printf("0x%02x%02x\n", sensor_data[1], sensor_data[0]);
-
-/*
-        sensor_tmp = (unsigned short)sensor_data[1] << 8 | (unsigned short)sensor_data[0];
-        if (sensor_tmp != 0) {
-            if (sensor_tmp < sensor_min) {
-                sensor_min = sensor_tmp;
+    while (interrupted == 0) {
+        if (nrf_link_poll() == FAIL) {
+            reset_nrf_link();
+        } else {
+            // Initialize link status
+            if (nrf_link_up == 0) {
+                nrf_link_up = 1;
+                previous_time = time(NULL);
             }
-            if (sensor_tmp > sensor_max) {
-                sensor_max = sensor_tmp;
+        }
+        // Update time counter
+        if (nrf_link_up == 1) {
+            time_now = time(NULL);
+            if ((time_now - previous_time) > 30) {
+                period_count++;
+                previous_time = time_now;
+                if (json_array_ptr == NULL) {
+                    json_array_ptr = json_array();
+                } 
+
+                if (json_array_ptr == NULL) {
+                    printf("JSON Error 1\n");
+                } else {
+                    json_t *json_element = json_array();
+                    if (json_element == NULL) {
+                        printf("JSON Error 2\n");
+                    } else {
+                        json_array_append_new(json_element, json_integer(time_now));
+                        json_array_append_new(json_element, json_integer(acc_count));
+                        acc_count = 0;
+                        json_array_append(json_array_ptr, json_element);
+                    }
+                }
             }
-            if (sensor_max > sensor_min) {
-                value = (unsigned char)((sensor_tmp - sensor_min) * 255 / (sensor_max - sensor_min));
-                if (intermcu_tx(0x01, 1, &value) != 0) {
-                    printf("intermcu_tx error!\n");
+
+            if (period_count == max_period_count) {
+                period_count = 0;
+                struct tm *calendar = localtime(&time_now);
+
+                if (calendar == NULL) {
+                    printf("localtime failed!\n");
+                } else {
+                    sprintf(fn, "/tmp/%d_%d_%d_%d_%d_%d.json", calendar->tm_year, calendar->tm_mon,
+                                calendar->tm_mday, calendar->tm_hour, calendar->tm_min, calendar->tm_sec);
+                    if (json_dump_file(json_array_ptr, fn, 0) != 0) {
+                        printf("json_dump_file failed!\n");
+                    } else {
+                        printf("json_dump_file %s done!\n", fn);
+                        strcpy(cmd_str, "/bin/aws_upload ");
+                        strcat(cmd_str, fn);
+                        system(cmd_str);
+                        printf("aws_upload done!\n");
+                    }
+                    size_t index;
+                    json_t *elem;
+
+                    json_array_foreach(json_array_ptr, index, elem) {
+                        json_decref(elem);
+                    }
+                    json_decref(json_array_ptr);
+                    json_array_ptr = NULL;
                 }
             }
         }
-        */
-
         usleep(100000);
     }
 
-    close(i2c_fd);
     gpio_dis_irq();
 
     return 0;

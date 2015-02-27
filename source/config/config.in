@@ -341,8 +341,11 @@ bool 'Layer2 Management'	CONFIG_RALINKAPP_L2_MANAGE
 bool 'GPIO'			CONFIG_RALINKAPP_GPIO
 bool 'SPI Command'		CONFIG_RALINKAPP_SPI
 bool 'I2C Command'		CONFIG_RALINKAPP_I2C
+bool 'JSON'		        CONFIG_QODOME_JSON
 bool 'iQo Manager Application'		CONFIG_QODOME_IQOMGR
 bool 'DHT Application'		CONFIG_QODOME_DHT
+bool 'W3C Library'		CONFIG_QODOME_LIB3W
+bool 'AWS Uploader'		CONFIG_QODOME_AWS
 bool 'Memory usage'		CONFIG_RALINKAPP_MEMORY_USAGE
 bool 'Software QoS'		CONFIG_RALINKAPP_SWQOS
 if [ "$CONFIG_RALINKAPP_SWQOS" = "y" ]; then

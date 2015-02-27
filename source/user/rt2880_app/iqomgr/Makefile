@@ -1,6 +1,7 @@
 EXEC = iqomgr
-OBJS = iqomgr.o
-CFLAGS += -I$(ROOTDIR)/$(LINUXDIR)/drivers/char/
+OBJS = iqomgr.o ../jansson-2.7/src/.libs/libjansson.a
+CFLAGS += -I$(ROOTDIR)/$(LINUXDIR)/drivers/char/ -I../jansson-2.7/src/
+LDFLAGS += -lm
 
 all: $(EXEC)
 

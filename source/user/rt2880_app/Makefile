@@ -16,8 +16,11 @@ ra_dir_$(CONFIG_RALINKAPP_PCM)		+= pcmcmd
 ra_dir_$(CONFIG_RALINKAPP_CLS)		+= clscmd
 ra_dir_$(CONFIG_RALINKAPP_SUPERDMZ)	+= super_dmz
 ra_dir_$(CONFIG_RALINKAPP_SWQOS)	+= sw_qos
+ra_dir_$(CONFIG_QODOME_JSON)        += jansson-2.7
 ra_dir_$(CONFIG_QODOME_IQOMGR)	    += iqomgr
 ra_dir_$(CONFIG_QODOME_DHT)	        += dht
+ra_dir_$(CONFIG_QODOME_LIB3W)	    += w3c-libwww-5.4.0
+ra_dir_$(CONFIG_QODOME_AWS)	        += aws_upload
 #ra_dir_$(CONFIG_RALINKAPP_WAPI)		+= wapi
 
 all romfs:
