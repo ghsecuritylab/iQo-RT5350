@@ -21,6 +21,7 @@ ra_dir_$(CONFIG_QODOME_IQOMGR)	    += iqomgr
 ra_dir_$(CONFIG_QODOME_DHT)	        += dht
 ra_dir_$(CONFIG_QODOME_LIB3W)	    += w3c-libwww-5.4.0
 ra_dir_$(CONFIG_QODOME_AWS)	        += aws_upload
+ra_dir_$(CONFIG_QODOME_AVAHI)	    += avahi-0.6.31
 #ra_dir_$(CONFIG_RALINKAPP_WAPI)		+= wapi
 
 all romfs:

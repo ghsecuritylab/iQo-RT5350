@@ -18,6 +18,8 @@ bool 'Build libdb'		CONFIG_LIB_LIBDB_FORCE
 bool 'Build pcre'		CONFIG_LIB_PCRE_FORCE
 bool 'Build vstr'		CONFIG_LIB_VSTR_FORCE
 bool 'Build zlib'		CONFIG_LIB_ZLIB_FORCE
+bool 'Build libdaemon'		CONFIG_LIB_DAEMON_FORCE
+bool 'Build expat'		CONFIG_LIB_EXPAT_FORCE
 bool 'Build uClibc (libstdc++)'	CONFIG_LIB_LIBSTDC_PLUS_FORCE
 dep_bool ' Hello World Example (c++)'  CONFIG_USER_HELLO_WORLD $CONFIG_LIB_LIBSTDC_PLUS_FORCE
 
@@ -346,6 +348,7 @@ bool 'iQo Manager Application'		CONFIG_QODOME_IQOMGR
 bool 'DHT Application'		CONFIG_QODOME_DHT
 bool 'W3C Library'		CONFIG_QODOME_LIB3W
 bool 'AWS Uploader'		CONFIG_QODOME_AWS
+bool 'AVAHI(mDNS server)'	CONFIG_QODOME_AVAHI
 bool 'Memory usage'		CONFIG_RALINKAPP_MEMORY_USAGE
 bool 'Software QoS'		CONFIG_RALINKAPP_SWQOS
 if [ "$CONFIG_RALINKAPP_SWQOS" = "y" ]; then

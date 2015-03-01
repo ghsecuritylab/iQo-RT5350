@@ -42,18 +42,18 @@ case "$1" in
 		killall -SIGTSTP goahead
 
 		# restart igmpproxy daemon
-		config-igmpproxy.sh
-		if [ "$wanmode" = "L2TP" ]; then
-			if [ "$CONFIG_PPPOL2TP" == "y" ]; then
-				openl2tpd
-			else
-				l2tpd
-				sleep 1
-				l2tp-control "start-session $l2tp_srv"
-			fi
-		elif [ "$wanmode" = "PPTP" ]; then
-			pppd file /etc/options.pptp  &
-		fi
+		#config-igmpproxy.sh
+		#if [ "$wanmode" = "L2TP" ]; then
+		#	if [ "$CONFIG_PPPOL2TP" == "y" ]; then
+		#		openl2tpd
+		#	else
+		#		l2tpd
+		#		sleep 1
+		#		l2tp-control "start-session $l2tp_srv"
+		#	fi
+		#elif [ "$wanmode" = "PPTP" ]; then
+		#	pppd file /etc/options.pptp  &
+		#fi
         ;;
 esac
 

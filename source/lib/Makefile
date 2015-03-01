@@ -30,6 +30,12 @@ include Rules.mak
 -include $(CONFIG_CONFIG)
 
 DIRS = ldso libc
+ifeq ($(CONFIG_LIB_EXPAT_FORCE),y)
+    DIRS += expat-2.1.0
+endif
+ifeq ($(CONFIG_LIB_DAEMON_FORCE),y)
+    DIRS += libdaemon-0.14
+endif
 ifeq ($(strip $(UCLIBC_HAS_GETTEXT_AWARENESS)),y)
     DIRS += libintl
 endif
@@ -115,6 +121,12 @@ ifeq ($(strip $(HAVE_SHARED)),y)
 	@$(MAKE) -C libc shared
 	@$(MAKE) -C ldso shared
 
+ifeq ($(CONFIG_LIB_EXPAT_FORCE),y)
+	@$(MAKE) -C expat-2.1.0 shared
+endif
+ifeq ($(CONFIG_LIB_DAEMON_FORCE),y)
+	@$(MAKE) -C libdaemon-0.14 shared
+endif
 ifeq ($(CONFIG_LIB_CRYPT_FORCE),y)
 	@$(MAKE) -C libcrypt shared
 endif
