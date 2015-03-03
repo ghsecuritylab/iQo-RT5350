@@ -20,6 +20,7 @@ bool 'Build vstr'		CONFIG_LIB_VSTR_FORCE
 bool 'Build zlib'		CONFIG_LIB_ZLIB_FORCE
 bool 'Build libdaemon'		CONFIG_LIB_DAEMON_FORCE
 bool 'Build expat'		CONFIG_LIB_EXPAT_FORCE
+bool 'Build nss-mdns'		CONFIG_LIB_NSS_MDNS_FORCE
 bool 'Build uClibc (libstdc++)'	CONFIG_LIB_LIBSTDC_PLUS_FORCE
 dep_bool ' Hello World Example (c++)'  CONFIG_USER_HELLO_WORLD $CONFIG_LIB_LIBSTDC_PLUS_FORCE
 

@@ -30,6 +30,9 @@ include Rules.mak
 -include $(CONFIG_CONFIG)
 
 DIRS = ldso libc
+ifeq ($(CONFIG_LIB_NSS_MDNS_FORCE),y)
+    DIRS += nss-mdns-0.10
+endif
 ifeq ($(CONFIG_LIB_EXPAT_FORCE),y)
     DIRS += expat-2.1.0
 endif
@@ -121,6 +124,9 @@ ifeq ($(strip $(HAVE_SHARED)),y)
 	@$(MAKE) -C libc shared
 	@$(MAKE) -C ldso shared
 
+ifeq ($(CONFIG_LIB_NSS_MDNS_FORCE),y)
+	@$(MAKE) -C nss-mdns-0.10 shared
+endif
 ifeq ($(CONFIG_LIB_EXPAT_FORCE),y)
 	@$(MAKE) -C expat-2.1.0 shared
 endif
@@ -503,6 +509,15 @@ clean:
 	$(MAKE) -C utils clean
 	$(MAKE) -C extra clean
 
+ifeq ($(CONFIG_LIB_NSS_MDNS_FORCE),y)
+	$(MAKE) -C nss-mdns-0.10 clean
+endif
+ifeq ($(CONFIG_LIB_EXPAT_FORCE),y)
+	$(MAKE) -C expat-2.1.0 clean
+endif
+ifeq ($(CONFIG_LIB_DAEMON_FORCE),y)
+	$(MAKE) -C libdaemon-0.14 clean
+endif
 ifeq ($(CONFIG_LIB_LIBUPNP_FORCE),y)
 	$(MAKE) -C libupnp clean
 endif

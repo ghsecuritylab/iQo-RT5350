@@ -1224,8 +1224,19 @@ homepage:
 	scp -r doxygen/html tango:www/avahi.org/tree/download/doxygen
 
 romfs:
+	rm -f libavahi-common.so.3
+	cp avahi-common/.libs/libavahi-common.so.3.5.3 libavahi-common.so.3
+	$(ROMFSINST) /lib/libavahi-common.so.3
+	rm -f libavahi-core.so.7
+	cp avahi-core/.libs/libavahi-core.so.7.0.2 libavahi-core.so.7
+	$(ROMFSINST) /lib/libavahi-core.so.7
+	rm -f avahi.daemon
 	cp avahi-daemon/.libs/avahi-daemon avahi.daemon
 	$(ROMFSINST) /bin/avahi.daemon
+	mkdir -p ../../../romfs/usr/local/etc/avahi/services
+	mkdir -p ../../../romfs/usr/local/var/run/avahi-daemon
+	cp avahi-daemon/avahi-daemon.conf ../../../romfs/usr/local/etc/avahi/
+	cp avahi-daemon/example.service ../../../romfs/usr/local/etc/avahi/services
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

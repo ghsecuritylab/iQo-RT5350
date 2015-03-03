@@ -1,0 +1,58 @@
+make  all-recursive
+make[1]: Entering directory `/home/felix/qodome/nss-mdns-0.10'
+Making all in src
+make[2]: Entering directory `/home/felix/qodome/nss-mdns-0.10/src'
+if /bin/bash ../libtool --tag=CC --mode=compile mipsel-linux-gcc -DHAVE_CONFIG_H -I. -I. -I..    -DMDNS_ALLOW_FILE=\"//etc/mdns.allow\" -DRESOLV_CONF_FILE=\"//etc/resolv.conf\" -DAVAHI_SOCKET=\"//var/run/avahi-daemon/socket\" '-DDEBUG_TRAP=__asm__("int $3")'  -g -O2 -std=gnu99 -Wall -W -Wextra -pedantic -pipe -Wformat -Wold-style-definition -Wdeclaration-after-statement -Wfloat-equal -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wredundant-decls -Wmissing-noreturn -Wshadow -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Winline -Wno-unused-parameter -pipe -W -Wall -pedantic -std=c99 -Wno-unused-parameter -MT libnss_mdns_la-nss.lo -MD -MP -MF ".deps/libnss_mdns_la-nss.Tpo" -c -o libnss_mdns_la-nss.lo `test -f 'nss.c' || echo './'`nss.c; \
+	then mv -f ".deps/libnss_mdns_la-nss.Tpo" ".deps/libnss_mdns_la-nss.Plo"; else rm -f ".deps/libnss_mdns_la-nss.Tpo"; exit 1; fi
+ mipsel-linux-gcc -DHAVE_CONFIG_H -I. -I. -I.. -DMDNS_ALLOW_FILE=\"//etc/mdns.allow\" -DRESOLV_CONF_FILE=\"//etc/resolv.conf\" -DAVAHI_SOCKET=\"//var/run/avahi-daemon/socket\" "-DDEBUG_TRAP=__asm__(\"int \$3\")" -g -O2 -std=gnu99 -Wall -W -Wextra -pedantic -pipe -Wformat -Wold-style-definition -Wdeclaration-after-statement -Wfloat-equal -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wredundant-decls -Wmissing-noreturn -Wshadow -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Winline -Wno-unused-parameter -pipe -W -Wall -pedantic -std=c99 -Wno-unused-parameter -MT libnss_mdns_la-nss.lo -MD -MP -MF .deps/libnss_mdns_la-nss.Tpo -c nss.c  -fPIC -DPIC -o .libs/libnss_mdns_la-nss.o
+nss.c:32:17: nss.h: No such file or directory
+nss.c:288: warning: ISO C forbids forward references to `enum' types
+nss.c:295: error: return type is an incomplete type
+nss.c:295: warning: no previous prototype for '_nss_mdns_gethostbyname2_r'
+nss.c: In function `_nss_mdns_gethostbyname2_r':
+nss.c:298: warning: ISO C forbids forward references to `enum' types
+nss.c:298: error: variable `status' has initializer but incomplete type
+nss.c:298: error: `NSS_STATUS_UNAVAIL' undeclared (first use in this function)
+nss.c:298: error: (Each undeclared identifier is reported only once
+nss.c:298: error: for each function it appears in.)
+nss.c:298: error: storage size of 'status' isn't known
+nss.c:344: error: `NSS_STATUS_TRYAGAIN' undeclared (first use in this function)
+nss.c:379: error: `NSS_STATUS_NOTFOUND' undeclared (first use in this function)
+nss.c:502: warning: cast increases required alignment of target type
+nss.c:503: warning: cast increases required alignment of target type
+nss.c:534: warning: cast increases required alignment of target type
+nss.c:535: warning: cast increases required alignment of target type
+nss.c:536: warning: cast increases required alignment of target type
+nss.c:538: error: `NSS_STATUS_SUCCESS' undeclared (first use in this function)
+nss.c:546: warning: `return' with a value, in function returning void
+nss.c:298: warning: unused variable `status'
+nss.c: At top level:
+nss.c:549: warning: ISO C forbids forward references to `enum' types
+nss.c:555: error: return type is an incomplete type
+nss.c:555: warning: no previous prototype for '_nss_mdns_gethostbyname_r'
+nss.c: In function `_nss_mdns_gethostbyname_r':
+nss.c:564: warning: `return' with a value, in function returning void
+nss.c: At top level:
+nss.c:567: warning: ISO C forbids forward references to `enum' types
+nss.c:575: error: return type is an incomplete type
+nss.c:575: warning: no previous prototype for '_nss_mdns_gethostbyaddr_r'
+nss.c: In function `_nss_mdns_gethostbyaddr_r':
+nss.c:578: warning: ISO C forbids forward references to `enum' types
+nss.c:578: error: variable `status' has initializer but incomplete type
+nss.c:578: error: `NSS_STATUS_UNAVAIL' undeclared (first use in this function)
+nss.c:578: error: storage size of 'status' isn't known
+nss.c:620: error: `NSS_STATUS_TRYAGAIN' undeclared (first use in this function)
+nss.c:645: error: `NSS_STATUS_NOTFOUND' undeclared (first use in this function)
+nss.c:693: warning: cast increases required alignment of target type
+nss.c:694: warning: cast increases required alignment of target type
+nss.c:730: warning: cast increases required alignment of target type
+nss.c:731: warning: cast increases required alignment of target type
+nss.c:732: warning: cast increases required alignment of target type
+nss.c:734: error: `NSS_STATUS_SUCCESS' undeclared (first use in this function)
+nss.c:742: warning: `return' with a value, in function returning void
+nss.c:578: warning: unused variable `status'
+make[2]: *** [libnss_mdns_la-nss.lo] Error 1
+make[2]: Leaving directory `/home/felix/qodome/nss-mdns-0.10/src'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/felix/qodome/nss-mdns-0.10'
+make: *** [all] Error 2

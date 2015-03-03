@@ -1,5 +1,6 @@
 KERNELZ = $(IMAGEDIR)/zImage
 RAMDISK  = $(IMAGEDIR)/ramdisk
+KERNEL_IMAGE = $(IMAGEDIR)/$(USER)_kernel
 IMAGE = $(IMAGEDIR)/$(USER)_uImage
 ROMFS_DIR = $(ROOTDIR)/romfs
 
@@ -100,71 +101,73 @@ mkimage: $(MKIMAGE_DIR)/crc32.c $(MKIMAGE_DIR)/mkimage.c
 image: mkimage
 	$(CROSS_COMPILE)objcopy -O binary -R .note -R .comment -S $(ROOTDIR)/$(LINUXDIR)/vmlinux  $(KERNELZ)
 	cd $(IMAGEDIR) ; rm -f $(KERNELZ).*; $(COMP_BIN) -9 -f -S .$(COMP) $(KERNELZ)
+	cd $(IMAGEDIR) ; $(CUR_DIR)/mkimage -A mips -O linux -T kernel -C $(COMP) -a 80000000 -e $(shell readelf -h $(ROOTDIR)/$(LINUXDIR)/vmlinux | grep "Entry" | awk '{print $$4}') -n "Linux Kernel Image"  -d $(KERNELZ).$(COMP) $(KERNEL_IMAGE)
+	cd $(IMAGEDIR) ; rm -f $(IMAGE) ; rm -f rootfs.jffs2 ; dd if=../../Uboot/uboot.img of=$(IMAGE) ; dd seek=640 if=$(KERNEL_IMAGE) of=$(IMAGE) ; mkfs.jffs2 -r ../romfs -l -o rootfs.jffs2 ; dd seek=2688 if=rootfs.jffs2 of=$(IMAGE)
 
-ifeq	($(CONFIG_BLK_DEV_INITRD),)
-ifeq	($(CONFIG_ROOTFS_IN_FLASH_NO_PADDING),)
-	@#============================================================
-	@# uboot hdr(64B) + mtdblock0(192KB) + mtdblock1(64KB) + 
-	@# mtdblock2(64KB) + mtdblock3 + mtdblock4 + mtdblock5
-	@# 
-	@# Padding size of mtdblock3 is equal to "MTD_KRN_PART_SIZE 
-	@# - 64B - the size of compressed kernel image"
-	@#
-	@# In Other Words:
-	@# MTD Kernel Partition Size is MUST bigger than 
-	@# "Original Kernel Image Size + 64B"
-	@#============================================================
-	#========<< This is README not Warning Message>>==============
-	# Please make sure that original kernel image size can't 
-	# bigger or equal to Kernel Partition Size. 
-	#
-	# For Example:
-	# 
-	# Original kernel image size is 563421 Bytes(0x898DD Bytes).
-	# Flash sector size is 0x10000, so MTD kernel 
-	# partition size MUST bigger than 0x90000.
-	#
-	# #make menuconfig
-	#
-	# Kernel/Library/Defaults Selection  --->
-	#   [*] Customize Kernel Settings (NEW)
-	#      Machine selection  --->
-	#        (90000) MTD Kernel Partition Size (Unit:Bytes)
-	#=============================================================
-	# Original Kernel Image Size
-	  @wc -c $(KERNELZ).$(COMP)
-	# Padded Kernel Image Size 
-ifeq    ($(findstring 0x, $(CONFIG_MTD_KERNEL_PART_SIZ)),0x)
-	  @SIZE=`wc -c $(KERNELZ).$(COMP) | awk '{ print $$1 }'` ; \
-	   MTD_KRN_PART_SIZE=`printf "%d" $(CONFIG_MTD_KERNEL_PART_SIZ)` ; \
-	   PAD=`expr $$MTD_KRN_PART_SIZE - 64 - $$SIZE` ; \
-	   dd if=/dev/zero count=1 bs=$$PAD 2> /dev/null | tr \\000 \\377 >> $(KERNELZ).$(COMP)
-else
-	  @SIZE=`wc -c $(KERNELZ).$(COMP) | awk '{ print $$1 }'` ; \
-	   MTD_KRN_PART_SIZE=`printf "%d" 0x$(CONFIG_MTD_KERNEL_PART_SIZ)` ; \
-	   PAD=`expr $$MTD_KRN_PART_SIZE - 64 - $$SIZE` ; \
-	   dd if=/dev/zero count=1 bs=$$PAD 2> /dev/null | tr \\000 \\377 >> $(KERNELZ).$(COMP)
-endif
-endif
-	@wc -c $(KERNELZ).$(COMP)
-	# Original RootFs Size 
-	  @du -sb $(ROMFSDIR)
-	# Compressed RootFs Size 
-	  @wc -c $(RAMDISK)
-	# Padded Kernel Image + Compressed Rootfs Size
-	  @cat $(RAMDISK) >> $(KERNELZ).$(COMP) 
-	  @wc -c $(KERNELZ).$(COMP)
-	#===========================================
-endif
-
-ifeq	($(CONFIG_ROOTFS_IN_FLASH_NO_PADDING),y)
-	@cd $(IMAGEDIR) ; \
-	ISIZE=`wc -c $(KERNELZ).$(COMP) | awk '{print $$1}'` ; \
-	RSIZE=`wc -c $(RAMDISK) | awk '{print $$1}'` ; \
-	KRN_SIZE=`expr $$ISIZE - $$RSIZE + 64` ; \
-	ENTRY=`readelf -h $(ROOTDIR)/$(LINUXDIR)/vmlinux | grep "Entry" | awk '{print $$4}'` ; \
-	$(CUR_DIR)/mkimage -A mips -O linux -T kernel -C $(COMP) -a 80000000 -e $$ENTRY -k $$KRN_SIZE -n "Linux Kernel Image" -d $(KERNELZ).$(COMP) $(IMAGE)
-else
-	cd $(IMAGEDIR) ; $(CUR_DIR)/mkimage -A mips -O linux -T kernel -C $(COMP) -a 80000000 -e $(shell readelf -h $(ROOTDIR)/$(LINUXDIR)/vmlinux | grep "Entry" | awk '{print $$4}') -n "Linux Kernel Image"  -d $(KERNELZ).$(COMP) $(IMAGE)
-endif
-
+#ifeq	($(CONFIG_BLK_DEV_INITRD),)
+#ifeq	($(CONFIG_ROOTFS_IN_FLASH_NO_PADDING),)
+#	@#============================================================
+#	@# uboot hdr(64B) + mtdblock0(192KB) + mtdblock1(64KB) + 
+#	@# mtdblock2(64KB) + mtdblock3 + mtdblock4 + mtdblock5
+#	@# 
+#	@# Padding size of mtdblock3 is equal to "MTD_KRN_PART_SIZE 
+#	@# - 64B - the size of compressed kernel image"
+#	@#
+#	@# In Other Words:
+#	@# MTD Kernel Partition Size is MUST bigger than 
+#	@# "Original Kernel Image Size + 64B"
+#	@#============================================================
+#	#========<< This is README not Warning Message>>==============
+#	# Please make sure that original kernel image size can't 
+#	# bigger or equal to Kernel Partition Size. 
+#	#
+#	# For Example:
+#	# 
+#	# Original kernel image size is 563421 Bytes(0x898DD Bytes).
+#	# Flash sector size is 0x10000, so MTD kernel 
+#	# partition size MUST bigger than 0x90000.
+#	#
+#	# #make menuconfig
+#	#
+#	# Kernel/Library/Defaults Selection  --->
+#	#   [*] Customize Kernel Settings (NEW)
+#	#      Machine selection  --->
+#	#        (90000) MTD Kernel Partition Size (Unit:Bytes)
+#	#=============================================================
+#	# Original Kernel Image Size
+#	  @wc -c $(KERNELZ).$(COMP)
+#	# Padded Kernel Image Size 
+#ifeq    ($(findstring 0x, $(CONFIG_MTD_KERNEL_PART_SIZ)),0x)
+#	  @SIZE=`wc -c $(KERNELZ).$(COMP) | awk '{ print $$1 }'` ; \
+#	   MTD_KRN_PART_SIZE=`printf "%d" $(CONFIG_MTD_KERNEL_PART_SIZ)` ; \
+#	   PAD=`expr $$MTD_KRN_PART_SIZE - 64 - $$SIZE` ; \
+#	   dd if=/dev/zero count=1 bs=$$PAD 2> /dev/null | tr \\000 \\377 >> $(KERNELZ).$(COMP)
+#else
+#	  @SIZE=`wc -c $(KERNELZ).$(COMP) | awk '{ print $$1 }'` ; \
+#	   MTD_KRN_PART_SIZE=`printf "%d" 0x$(CONFIG_MTD_KERNEL_PART_SIZ)` ; \
+#	   PAD=`expr $$MTD_KRN_PART_SIZE - 64 - $$SIZE` ; \
+#	   dd if=/dev/zero count=1 bs=$$PAD 2> /dev/null | tr \\000 \\377 >> $(KERNELZ).$(COMP)
+#endif
+#endif
+#	@wc -c $(KERNELZ).$(COMP)
+#	# Original RootFs Size 
+#	  @du -sb $(ROMFSDIR)
+#	# Compressed RootFs Size 
+#	  @wc -c $(RAMDISK)
+#	# Padded Kernel Image + Compressed Rootfs Size
+#	  @cat $(RAMDISK) >> $(KERNELZ).$(COMP) 
+#	  @wc -c $(KERNELZ).$(COMP)
+#	#===========================================
+#endif
+#
+#ifeq	($(CONFIG_ROOTFS_IN_FLASH_NO_PADDING),y)
+#	@cd $(IMAGEDIR) ; \
+#	ISIZE=`wc -c $(KERNELZ).$(COMP) | awk '{print $$1}'` ; \
+#	RSIZE=`wc -c $(RAMDISK) | awk '{print $$1}'` ; \
+#	KRN_SIZE=`expr $$ISIZE - $$RSIZE + 64` ; \
+#	ENTRY=`readelf -h $(ROOTDIR)/$(LINUXDIR)/vmlinux | grep "Entry" | awk '{print $$4}'` ; \
+#	$(CUR_DIR)/mkimage -A mips -O linux -T kernel -C $(COMP) -a 80000000 -e $$ENTRY -k $$KRN_SIZE -n "Linux Kernel Image" -d $(KERNELZ).$(COMP) $(IMAGE)
+#else
+#	cd $(IMAGEDIR) ; $(CUR_DIR)/mkimage -A mips -O linux -T kernel -C $(COMP) -a 80000000 -e $(shell readelf -h $(ROOTDIR)/$(LINUXDIR)/vmlinux | grep "Entry" | awk '{print $$4}') -n "Linux Kernel Image"  -d $(KERNELZ).$(COMP) $(IMAGE)
+#endif
+#
