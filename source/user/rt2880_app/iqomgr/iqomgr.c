@@ -20,6 +20,8 @@
 #define NRF_IDLE_NOTIFY         0x20
 #define NRF_ACC_NOTIFY          0x21
 #define NRF_TEMP_NOTIFY         0x22
+#define NRF_WIFI_SSID_NOTIFY    0x23
+#define NRF_WIFI_PSWD_NOTIFY    0x24
 
 enum {
 	gpio_in,
@@ -41,6 +43,9 @@ int max_period_count = 12;      // By default dump data every hour
 int nrf_link_up = 0;
 time_t previous_time = 0;
 json_t *json_array_ptr = NULL;
+
+unsigned char ssid[20] = {0};
+unsigned char password[20] = {0};
 
 void signal_handler(int signum)
 {
@@ -231,15 +236,15 @@ void interrupt_handler(int s)
 // Issue interface reset towards nRF51822
 void reset_nrf_link(void)
 {
-    gpio_write_int(11, 0);
+    gpio_write_int(13, 0);
     sleep(1);
-    gpio_write_int(11, 1);
+    gpio_write_int(13, 1);
     sleep(1);
-    gpio_write_int(11, 0);
+    gpio_write_int(13, 0);
     sleep(1);
-    gpio_write_int(11, 1);
+    gpio_write_int(13, 1);
     sleep(1);
-    gpio_write_int(11, 0);
+    gpio_write_int(13, 0);
     sleep(1);
     printf("nrf link reset done!\n");
 }
@@ -247,15 +252,16 @@ void reset_nrf_link(void)
 int nrf_link_poll(void)
 {
     unsigned char header_buf[2] = {0};
-    unsigned char body_buf[4] = {0};
-	int flag = 0, fd;
+    unsigned char body_buf[20] = {0};
+	int flag = 0, fd, idx;
     unsigned char cnt;
     SPI_INTERMCU intermcu;
+    FILE *fp = NULL;
 
     signal_up = signal_down = 0;
 
     // First cmd: POLL
-    gpio_write_int(11, 1);
+    gpio_write_int(13, 1);
     
     cnt = 0;
     while (signal_up == 0 && cnt < 10) {
@@ -264,14 +270,14 @@ int nrf_link_poll(void)
     }
     if (signal_up == 0) {
         printf("nrf link poll failed stage 1!\n");
-        gpio_write_int(11, 0);
+        gpio_write_int(13, 0);
         return FAIL;
     }
     signal_up = 0;
-    gpio_write_int(11, 0);
+    gpio_write_int(13, 0);
 
     header_buf[0] = NRF_CMD_POLL;
-    header_buf[1] = 4;
+    header_buf[1] = 20;
 
     usleep(10000);
     signal_down = 0;
@@ -297,7 +303,7 @@ int nrf_link_poll(void)
     signal_down = 0;
 
     // Second cmd: the cmd body
-    gpio_write_int(11, 1);
+    gpio_write_int(13, 1);
     
     cnt = 0;
     while (signal_up == 0 && cnt < 10) {
@@ -306,11 +312,11 @@ int nrf_link_poll(void)
     }
     if (signal_up == 0) {
         printf("nrf link poll failed stage 3!\n");
-        gpio_write_int(11, 0);
+        gpio_write_int(13, 0);
         return FAIL;
     }
     signal_up = 0;
-    gpio_write_int(11, 0);
+    gpio_write_int(13, 0);
 
     usleep(10000);
     signal_down = 0;
@@ -319,7 +325,7 @@ int nrf_link_poll(void)
         printf("Please insmod module spi_drv.o!\n");
         return -1;
     }
-    intermcu.size = 4;
+    intermcu.size = 20;
     intermcu.buf = body_buf;
     ioctl(fd, RT2880_SPI_INTERMCU_READ, &intermcu);
 	close(fd);
@@ -327,6 +333,56 @@ int nrf_link_poll(void)
     if (body_buf[0] == NRF_ACC_NOTIFY) {
         acc_count++;
         printf("got acc notify\n");
+    } else if (body_buf[0] == NRF_WIFI_SSID_NOTIFY) {
+        for (idx = 0; idx < 20; idx++) {
+            ssid[idx] = 0;
+        }
+        printf("set SSID: ");
+        for (idx = 1; idx < 20; idx++) {
+            if (body_buf[idx] != 0) {
+                ssid[idx - 1] = body_buf[idx];
+                printf("%c", body_buf[idx]);
+            } else {
+                ssid[idx - 1] = 0;
+                printf("\n");
+                break;
+            }
+        }
+    } else if (body_buf[0] == NRF_WIFI_PSWD_NOTIFY) {
+        for (idx = 0; idx < 20; idx++) {
+            password[idx] = 0;
+        }
+        printf("set Password: ");
+        for (idx = 1; idx < 20; idx++) {
+            if (body_buf[idx] != 0) {
+                password[idx - 1] = body_buf[idx];
+                printf("%c", body_buf[idx]);
+            } else {
+                password[idx - 1] = 0;
+                printf("\n");
+                break;
+            }
+        }
+        fp = fopen("/sbin/start_wifi_gen.sh", "w");
+        if (fp != NULL) {
+            fprintf(fp, "#!/usr/bin\n\n");
+            fprintf(fp, "echo root:x:0:0:root:/root:/bin/sh > /etc/passwd\n");
+            fprintf(fp, "chmod 755 /etc/passwd\n");
+            fprintf(fp, "adduser -D avahi\n");
+            fprintf(fp, "hostname -F /usr/local/etc/hostname\n\n");
+            fprintf(fp, "ifconfig ra0 up\n");
+            fprintf(fp, "iwpriv ra0 set NetworkType=Infra\n");
+            fprintf(fp, "iwpriv ra0 set AuthMode=WPAPSK\n");
+            fprintf(fp, "iwpriv ra0 set EncrypType=AES\n");
+            fprintf(fp, "iwpriv ra0 set WPAPSK=\"%s\"\n", password);
+            fprintf(fp, "iwpriv ra0 set SSID=\"%s\"\n\n", ssid);
+            fprintf(fp, "udhcpc -p /var/run/udhcpc.pid -s /sbin/udhcpc.sh -i ra0 &\n");
+            fclose(fp);
+            printf("start_wifi_gen created!\n");
+            system("chmod +x /sbin/start_wifi_gen.sh");
+            system(". /sbin/start_wifi_gen.sh");
+            printf("executing start_wifi_gen\n");
+        }
     } else if (body_buf[0] != NRF_IDLE_NOTIFY) {
         printf("got unknown notify: 0x%x\n", body_buf[0]);
     }
@@ -344,7 +400,6 @@ int nrf_link_poll(void)
     return SUCCESS;
 }
 
-// Check sensor output and ask NRF to tune the light
 int main(int argc, char *argv[])
 {
     time_t time_now;
@@ -365,10 +420,10 @@ int main(int argc, char *argv[])
     sigaction(SIGINT, &sigIntHandler, NULL);
 
     // Configure IO port
-	gpio_set_dir(7, gpio_in);
+	gpio_set_dir(12, gpio_in);
     gpio_enb_irq();
-    gpio_reg_info(7);
-    gpio_set_dir(11, gpio_out);
+    gpio_reg_info(12);
+    gpio_set_dir(13, gpio_out);
 
     while (interrupted == 0) {
         if (nrf_link_poll() == FAIL) {
