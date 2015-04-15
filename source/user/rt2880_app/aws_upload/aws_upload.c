@@ -138,12 +138,15 @@ int main (int argc, char ** argv)
         memcpy(fn, fn_ptr_previous, strlen(fn_ptr_previous));
     }
 
+    /*
     fn_ptr = strstr(fn, ".json");
     if (fn_ptr != NULL) {
         fn_ptr[0] = 0;
     }
-    strcpy(addr, "http://test.qodome.com/api/v1/get_upload_params/?content_type=application/json&type=s&filename=");
+    */
+    strcpy(addr, "http://qodome.com/api/v1/get_upload_params/?app=health&type=s&filename=");
     strcat(addr, fn);
+    printf("Step 1 target: %s\n", addr);
 
     json_f = json_load_file(argv[1], 0, &error);
     if (!json_f) {
@@ -168,7 +171,7 @@ int main (int argc, char ** argv)
 
     request = HTRequest_new();
 
-    HTRequest_addCredentials(request, "Authorization", "Token 6ee875a7584eaf9f84b7e33dbb7fc685ad2161a7");
+    HTRequest_addCredentials(request, "Authorization", "Token 707daebb6f44342e9b9c73569404fc8a971db7d3");
 
     HTRequest_setOutputFormat(request, WWW_SOURCE);
 
@@ -213,7 +216,7 @@ int main (int argc, char ** argv)
 	HTRequest_setOutputFormat(request, WWW_SOURCE);
 
 	/* Get an anchor object for the URI */
-	anchor = HTAnchor_findAddress("http://test.media.qodome.com");
+	anchor = HTAnchor_findAddress("http://media.qodome.com");
 
 	HTPostFormAnchorToChunk(formfields, anchor, request, 1);
 	HTAssocList_delete(formfields);
@@ -225,7 +228,7 @@ int main (int argc, char ** argv)
     // Step 3
     HTNet_deleteAfter(step2_terminate_handler);
     HTNet_addAfter(step3_terminate_handler, NULL, NULL, HT_ALL, HT_FILTER_LAST);
-    strcpy(addr_base, "http://test.qodome.com/api/v1/healths/");
+    strcpy(addr_base, "http://qodome.com/api/v1/healths/");
 
     HTHost_setEventTimeout(20000);
 
