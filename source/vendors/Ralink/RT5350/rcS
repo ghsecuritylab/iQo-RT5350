@@ -14,4 +14,4 @@ mkdir -p /var/log
 /sbin/internet.sh
 /sbin/ntp.sh
 /sbin/insmod /etc_ro/rt5350sta.ko
-/bin/iqomgr
+/bin/iqomgr &

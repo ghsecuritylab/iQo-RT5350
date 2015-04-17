@@ -16,6 +16,7 @@
 #define SUCCESS     1
 
 #define NRF_CMD_POLL            0x00
+#define NRF_CMD_SEND_IP         0x01
 
 #define NRF_IDLE_NOTIFY         0x20
 #define NRF_ACC_NOTIFY          0x21
@@ -46,6 +47,10 @@ json_t *json_array_ptr = NULL;
 
 unsigned char ssid[20] = {0};
 unsigned char password[20] = {0};
+char ip_addr_found = 0;
+char ip_addr_sent = 0;
+unsigned char ip[15] = {0};
+char ipLen = 0;
 
 void signal_handler(int signum)
 {
@@ -276,115 +281,178 @@ int nrf_link_poll(void)
     signal_up = 0;
     gpio_write_int(13, 0);
 
-    header_buf[0] = NRF_CMD_POLL;
-    header_buf[1] = 20;
+    if (ip_addr_sent == 0 && ip_addr_found == 1) {
+        ip_addr_sent = 1;
+        printf("Send IP Address\n");
+        // Send IP Address
 
-    usleep(10000);
-    signal_down = 0;
-    fd = open("/dev/spiS0", O_RDONLY); 
-    if (fd <= 0) {
-        printf("Please insmod module spi_drv.o!\n");
-        return -1;
-    }
-    intermcu.size = 2;
-    intermcu.buf = header_buf;
-    ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
-	close(fd);
+        header_buf[0] = NRF_CMD_SEND_IP;
+        header_buf[1] = ipLen;
 
-    cnt = 0;
-    while (signal_down == 0 && cnt < 10) {
         usleep(10000);
-        cnt++;
-    }
-    if (signal_down == 0) {
-        printf("nrf link poll failed stage 2!\n");
-        return FAIL;
-    }
-    signal_down = 0;
+        signal_down = 0;
+        fd = open("/dev/spiS0", O_RDONLY); 
+        if (fd <= 0) {
+            printf("Please insmod module spi_drv.o!\n");
+            return -1;
+        }
+        intermcu.size = 2;
+        intermcu.buf = header_buf;
+        ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
+        close(fd);
 
-    // Second cmd: the cmd body
-    gpio_write_int(13, 1);
-    
-    cnt = 0;
-    while (signal_up == 0 && cnt < 10) {
-        usleep(10000);
-        cnt++;
-    }
-    if (signal_up == 0) {
-        printf("nrf link poll failed stage 3!\n");
+        cnt = 0;
+        while (signal_down == 0 && cnt < 10) {
+            usleep(10000);
+            cnt++;
+        }
+        if (signal_down == 0) {
+            printf("nrf link poll failed stage 2!\n");
+            return FAIL;
+        }
+        signal_down = 0;
+
+        // Second cmd: the cmd body
+        gpio_write_int(13, 1);
+
+        cnt = 0;
+        while (signal_up == 0 && cnt < 10) {
+            usleep(10000);
+            cnt++;
+        }
+        if (signal_up == 0) {
+            printf("nrf link poll failed stage 3!\n");
+            gpio_write_int(13, 0);
+            return FAIL;
+        }
+        signal_up = 0;
         gpio_write_int(13, 0);
-        return FAIL;
-    }
-    signal_up = 0;
-    gpio_write_int(13, 0);
 
-    usleep(10000);
-    signal_down = 0;
-    fd = open("/dev/spiS0", O_RDONLY); 
-    if (fd <= 0) {
-        printf("Please insmod module spi_drv.o!\n");
-        return -1;
-    }
-    intermcu.size = 20;
-    intermcu.buf = body_buf;
-    ioctl(fd, RT2880_SPI_INTERMCU_READ, &intermcu);
-	close(fd);
+        usleep(10000);
+        signal_down = 0;
+        fd = open("/dev/spiS0", O_RDONLY); 
+        if (fd <= 0) {
+            printf("Please insmod module spi_drv.o!\n");
+            return -1;
+        }
+        intermcu.size = ipLen;
+        intermcu.buf = ip;
+        ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
+        close(fd);
 
-    if (body_buf[0] == NRF_ACC_NOTIFY) {
-        acc_count++;
-        printf("got acc notify\n");
-    } else if (body_buf[0] == NRF_WIFI_SSID_NOTIFY) {
-        for (idx = 0; idx < 20; idx++) {
-            ssid[idx] = 0;
+    } else {
+        // Normal command POLL
+
+        header_buf[0] = NRF_CMD_POLL;
+        header_buf[1] = 20;
+
+        usleep(10000);
+        signal_down = 0;
+        fd = open("/dev/spiS0", O_RDONLY); 
+        if (fd <= 0) {
+            printf("Please insmod module spi_drv.o!\n");
+            return -1;
         }
-        printf("set SSID: ");
-        for (idx = 1; idx < 20; idx++) {
-            if (body_buf[idx] != 0) {
-                ssid[idx - 1] = body_buf[idx];
-                printf("%c", body_buf[idx]);
-            } else {
-                ssid[idx - 1] = 0;
-                printf("\n");
-                break;
+        intermcu.size = 2;
+        intermcu.buf = header_buf;
+        ioctl(fd, RT2880_SPI_INTERMCU_WRITE, &intermcu);
+        close(fd);
+
+        cnt = 0;
+        while (signal_down == 0 && cnt < 10) {
+            usleep(10000);
+            cnt++;
+        }
+        if (signal_down == 0) {
+            printf("nrf link poll failed stage 2!\n");
+            return FAIL;
+        }
+        signal_down = 0;
+
+        // Second cmd: the cmd body
+        gpio_write_int(13, 1);
+
+        cnt = 0;
+        while (signal_up == 0 && cnt < 10) {
+            usleep(10000);
+            cnt++;
+        }
+        if (signal_up == 0) {
+            printf("nrf link poll failed stage 3!\n");
+            gpio_write_int(13, 0);
+            return FAIL;
+        }
+        signal_up = 0;
+        gpio_write_int(13, 0);
+
+        usleep(10000);
+        signal_down = 0;
+        fd = open("/dev/spiS0", O_RDONLY); 
+        if (fd <= 0) {
+            printf("Please insmod module spi_drv.o!\n");
+            return -1;
+        }
+        intermcu.size = 20;
+        intermcu.buf = body_buf;
+        ioctl(fd, RT2880_SPI_INTERMCU_READ, &intermcu);
+        close(fd);
+
+        if (body_buf[0] == NRF_ACC_NOTIFY) {
+            acc_count++;
+            printf("got acc notify\n");
+        } else if (body_buf[0] == NRF_WIFI_SSID_NOTIFY) {
+            for (idx = 0; idx < 20; idx++) {
+                ssid[idx] = 0;
             }
-        }
-    } else if (body_buf[0] == NRF_WIFI_PSWD_NOTIFY) {
-        for (idx = 0; idx < 20; idx++) {
-            password[idx] = 0;
-        }
-        printf("set Password: ");
-        for (idx = 1; idx < 20; idx++) {
-            if (body_buf[idx] != 0) {
-                password[idx - 1] = body_buf[idx];
-                printf("%c", body_buf[idx]);
-            } else {
-                password[idx - 1] = 0;
-                printf("\n");
-                break;
+            printf("set SSID: ");
+            for (idx = 1; idx < 20; idx++) {
+                if (body_buf[idx] != 0) {
+                    ssid[idx - 1] = body_buf[idx];
+                    printf("%c", body_buf[idx]);
+                } else {
+                    ssid[idx - 1] = 0;
+                    printf("\n");
+                    break;
+                }
             }
+        } else if (body_buf[0] == NRF_WIFI_PSWD_NOTIFY) {
+            for (idx = 0; idx < 20; idx++) {
+                password[idx] = 0;
+            }
+            printf("set Password: ");
+            for (idx = 1; idx < 20; idx++) {
+                if (body_buf[idx] != 0) {
+                    password[idx - 1] = body_buf[idx];
+                    printf("%c", body_buf[idx]);
+                } else {
+                    password[idx - 1] = 0;
+                    printf("\n");
+                    break;
+                }
+            }
+            fp = fopen("/sbin/start_wifi_gen.sh", "w");
+            if (fp != NULL) {
+                fprintf(fp, "#!/usr/bin\n\n");
+                fprintf(fp, "echo root:x:0:0:root:/root:/bin/sh > /etc/passwd\n");
+                fprintf(fp, "chmod 755 /etc/passwd\n");
+                fprintf(fp, "adduser -D avahi\n");
+                fprintf(fp, "hostname -F /usr/local/etc/hostname\n\n");
+                fprintf(fp, "ifconfig ra0 up\n");
+                fprintf(fp, "iwpriv ra0 set NetworkType=Infra\n");
+                fprintf(fp, "iwpriv ra0 set AuthMode=WPAPSK\n");
+                fprintf(fp, "iwpriv ra0 set EncrypType=AES\n");
+                fprintf(fp, "iwpriv ra0 set WPAPSK=\"%s\"\n", password);
+                fprintf(fp, "iwpriv ra0 set SSID=\"%s\"\n\n", ssid);
+                fprintf(fp, "udhcpc -p /var/run/udhcpc.pid -s /sbin/udhcpc.sh -i ra0 &\n");
+                fclose(fp);
+                printf("start_wifi_gen created!\n");
+                system("chmod +x /sbin/start_wifi_gen.sh");
+                system(". /sbin/start_wifi_gen.sh");
+                printf("executing start_wifi_gen\n");
+            }
+        } else if (body_buf[0] != NRF_IDLE_NOTIFY) {
+            printf("got unknown notify: 0x%x\n", body_buf[0]);
         }
-        fp = fopen("/sbin/start_wifi_gen.sh", "w");
-        if (fp != NULL) {
-            fprintf(fp, "#!/usr/bin\n\n");
-            fprintf(fp, "echo root:x:0:0:root:/root:/bin/sh > /etc/passwd\n");
-            fprintf(fp, "chmod 755 /etc/passwd\n");
-            fprintf(fp, "adduser -D avahi\n");
-            fprintf(fp, "hostname -F /usr/local/etc/hostname\n\n");
-            fprintf(fp, "ifconfig ra0 up\n");
-            fprintf(fp, "iwpriv ra0 set NetworkType=Infra\n");
-            fprintf(fp, "iwpriv ra0 set AuthMode=WPAPSK\n");
-            fprintf(fp, "iwpriv ra0 set EncrypType=AES\n");
-            fprintf(fp, "iwpriv ra0 set WPAPSK=\"%s\"\n", password);
-            fprintf(fp, "iwpriv ra0 set SSID=\"%s\"\n\n", ssid);
-            fprintf(fp, "udhcpc -p /var/run/udhcpc.pid -s /sbin/udhcpc.sh -i ra0 &\n");
-            fclose(fp);
-            printf("start_wifi_gen created!\n");
-            system("chmod +x /sbin/start_wifi_gen.sh");
-            system(". /sbin/start_wifi_gen.sh");
-            printf("executing start_wifi_gen\n");
-        }
-    } else if (body_buf[0] != NRF_IDLE_NOTIFY) {
-        printf("got unknown notify: 0x%x\n", body_buf[0]);
     }
 
     cnt = 0;
@@ -406,6 +474,10 @@ int main(int argc, char *argv[])
     struct sigaction sigIntHandler;
     char fn[128] = {0};
     char cmd_str[128] = {0};
+    char log[32] = {0};
+    char *logPtr = NULL;
+    char *logPtrEnd = NULL;
+    FILE *fp = NULL;
 
     if (argc == 2) {
         max_period_count = atoi(argv[1]);
@@ -490,6 +562,31 @@ int main(int argc, char *argv[])
             }
         }
         usleep(100000);
+        if (ip_addr_found == 0) {
+            system("ip addr show ra0 | grep \"inet \" > /tmp/ip.log");
+            fp = fopen("/tmp/ip.log", "r");
+            if (fp != NULL) {
+                if (fread(log, 1, 32, fp) > 0) {
+                    printf("Got ip address\n");
+                    ip_addr_found = 1;
+                    logPtr = strstr(log, "inet ");
+                    logPtrEnd = strstr(log, "/");
+                    if (logPtr != NULL && logPtrEnd != NULL) {
+                        logPtr += 5;
+                        ipLen = 0;
+                        while (logPtr != logPtrEnd) {
+                            ip[ipLen] = *logPtr;
+                            printf("%c", ip[ipLen]);
+                            ipLen++;
+                            logPtr++;
+                        }
+                        printf("\n");
+                        printf("ipLen: %d\n", ipLen);
+                    }
+                }
+                fclose(fp);
+            }
+        }
     }
 
     gpio_dis_irq();
